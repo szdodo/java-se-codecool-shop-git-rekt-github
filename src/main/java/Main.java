@@ -42,7 +42,7 @@ public class Main {
             catch (Exception e) {
                 System.out.println("Error: invalid supplier");
             }
-        return "success void";
+            return new ThymeleafTemplateEngine().render(ProductController.renderProducts(req, res));
         });
 
         // Add this line to your project to enable the debug screen

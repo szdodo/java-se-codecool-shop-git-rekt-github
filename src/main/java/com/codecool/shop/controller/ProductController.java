@@ -14,6 +14,7 @@ import spark.Request;
 import spark.Response;
 import spark.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +24,8 @@ public class ProductController {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
 
-        Map params = new HashMap<>();
+        HashMap<String,ArrayList> params=new HashMap<>();
+        ArrayList<HashMap> catList=new ArrayList<>();
 
         int catIdx = 0;
         switch (category) {
@@ -34,9 +36,12 @@ public class ProductController {
                 catIdx = 2;
                 break;
         }
+        HashMap par = new HashMap<>();
 
-        params.put("category", productCategoryDataStore.find(catIdx));
-        params.put("products", productDataStore.getBy(productCategoryDataStore.find(catIdx)));
+        par.put("category", productCategoryDataStore.find(catIdx));
+        par.put("products", productDataStore.getBy(productCategoryDataStore.find(catIdx)));
+        catList.add(par);
+        params.put("categories", catList);
         return new ModelAndView(params, "product/index");
     }
 
@@ -45,7 +50,8 @@ public class ProductController {
         SupplierDao supplierDaoDataStore = SupplierDaoMem.getInstance();
 
 
-        Map params = new HashMap<>();
+        HashMap<String,ArrayList> params=new HashMap<>();
+        ArrayList<HashMap> suppList=new ArrayList<>();
 
         int supIdx = 0;
         switch (supplier) {
@@ -56,10 +62,33 @@ public class ProductController {
                 supIdx = 2;
                 break;
         }
-
-        params.put("category", supplierDaoDataStore.find(supIdx));
-        params.put("products", productDataStore.getBy(supplierDaoDataStore.find(supIdx)));
+        HashMap par = new HashMap<>();
+        par.put("category", supplierDaoDataStore.find(supIdx));
+        par.put("products", productDataStore.getBy(supplierDaoDataStore.find(supIdx)));
+        suppList.add(par);
+        params.put("categories", suppList);
         return new ModelAndView(params, "product/index");
     }
+
+    public static ModelAndView renderProducts(Request req, Response res) {
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+
+        HashMap<String,ArrayList> params=new HashMap<>();
+        ArrayList<HashMap> prodList=new ArrayList<>();
+        int productQuantity=productCategoryDataStore.getAll().size();
+
+        for (int i=1;i<=productQuantity;i++){
+            HashMap par = new HashMap<>();
+            par.put("category", productCategoryDataStore.find(i));
+            par.put("products", productDataStore.getBy(productCategoryDataStore.find(i)));
+            prodList.add(par);
+            System.out.println(par);
+        }
+        params.put("categories", prodList);
+        System.out.println(params);
+        return new ModelAndView(params, "product/index");
+    }
+
 
 }
