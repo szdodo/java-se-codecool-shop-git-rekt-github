@@ -47,13 +47,17 @@
             <i class="fa fa-3x fa-shopping-cart" aria-hidden="true"></i>
         </div>
     </div>
+
+
     <div class="well well-sm">
-        <strong th:text="${category.name}">Category Title</strong>
-    </div>
+        <div th:each="catName : ${categories}" th:with="item=${catName}">
+        <strong th:text="${item.category.name}" >Category Title</strong>
+
+
 
     <div id="products" class="row list-group">
 
-        <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
+        <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${item.products}">
             <div class="thumbnail">
                 <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
                 <div class="caption">
@@ -70,6 +74,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
 
 </div>

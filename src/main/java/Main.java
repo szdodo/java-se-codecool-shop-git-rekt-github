@@ -44,7 +44,7 @@ public class Main {
             catch (Exception e) {
                 System.out.println("Error: invalid supplier");
             }
-        return "success void";
+            return new ThymeleafTemplateEngine().render(ProductController.renderProducts(req, res));
         });
 
         get("/addToCart", (req, res) -> {
