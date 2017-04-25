@@ -61,6 +61,16 @@
     margin: 0 0 11px;
 }
 
+.shopping-cart {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.fa-shopping-cart {
+    color: #446CB3;
+}
+
 
 /* ##### FILTER STYLE ##### */
 
