@@ -24,6 +24,7 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="/css/custom.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="/js/script.js"></script>
@@ -42,6 +43,9 @@
         <div class="dropdown" onclick="window.location = '?supplier=Lenovo'">Lenovo products</div>
         <div class="dropdown" onclick="window.location = '?category=tablet'">Show Tablets</div>
         <div class="dropdown" onclick="window.location = '?category=laptop'">Show Laptops</div>
+        <div class="shopping-cart">
+            <i class="fa fa-3x fa-shopping-cart" aria-hidden="true"></i>
+        </div>
     </div>
     <div class="well well-sm">
         <strong th:text="${category.name}">Category Title</strong>
@@ -60,7 +64,7 @@
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="#">Add to cart</a>
+                            <a class="btn btn-success" href="#" th:attr="data-product_id=${prod.id}">Add to cart</a>
                         </div>
                     </div>
                 </div>
