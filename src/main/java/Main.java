@@ -1,4 +1,3 @@
-import static com.sun.javafx.tools.resource.DeployResource.Type.data;
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
@@ -16,6 +15,7 @@ import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
+import javax.sound.sampled.Line;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -68,30 +68,23 @@ public class Main {
 
         get("/getCartContent", (Request req, Response res) -> {
 
-            ArrayList<Product> products = new ArrayList<>();
+            ArrayList<LineItem> products = new ArrayList<>();
             products = cart.getCartContent();
-//            ObjectMapper mapper = new ObjectMapper();
-            String result = "";
-//
-//            for (int i = 0; i < products.size(); i++) {
-//
-//                System.out.println(object.getClass());
-//                String jsonAsd = mapper.writeValueAsString(object);
-//                result += jsonAsd;
-//                }
-
-            HashMap<String, Supplier> objects = new HashMap<>();
-
-            System.out.println("attempting convert");
             ObjectMapper mapper = new ObjectMapper();
-            System.out.println(mapper);
-            Supplier supp = new Supplier("asd", "asd");
-            supp.addProduct(products.get(0));
-            objects.put("objects", supp);
-            System.out.println("objects put in map");
-            String jsonAsd = mapper.writeValueAsString(objects);
-            System.out.println("converted to json");
-            return jsonAsd;
+            ArrayList<String> result=new ArrayList<>();
+
+            for (int i = 0; i < products.size(); i++) {
+
+                LineItem prod=products.get(i);
+                String jsonAsd = mapper.writeValueAsString(prod);
+                result.add(jsonAsd);
+                }
+
+            /*LineItem lin = products.get(0);
+            LineItem l = new LineItem(lin.name, lin.defaultPrice, lin.defaultCurrency);
+            Supplier amazon = new Supplier("Amazon", "Digital content and services");
+            result = mapper.writeValueAsString(lin);*/
+            return result;
 
         });
 
