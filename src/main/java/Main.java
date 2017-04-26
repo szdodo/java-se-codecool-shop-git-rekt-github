@@ -2,18 +2,14 @@ import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
 import com.codecool.shop.controller.ProductController;
-import com.codecool.shop.controller.CartController;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.sun.corba.se.spi.ior.ObjectKey;
-import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+import spark.ModelAndView;
 
 import javax.sound.sampled.Line;
 import java.util.ArrayList;
@@ -31,9 +27,6 @@ public class Main {
         // populate some data for the memory storage
         populateData();
         ShoppingCart cart = ShoppingCart.getInstance();
-
-        // Always start with more specific routes
-        get("/hello", (req, res) -> "Hello World");
 
         // Always add generic routes to the end
         //get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
@@ -78,16 +71,32 @@ public class Main {
                 LineItem prod=products.get(i);
                 String jsonAsd = mapper.writeValueAsString(prod);
                 result.add(jsonAsd);
-                }
 
-            /*LineItem lin = products.get(0);
-            LineItem l = new LineItem(lin.name, lin.defaultPrice, lin.defaultCurrency);
-            Supplier amazon = new Supplier("Amazon", "Digital content and services");
-            result = mapper.writeValueAsString(lin);*/
             return result;
 
+
+        get("/checkout", (req, res) -> {
+            HashMap<String, ArrayList> cartContent = new HashMap<>();
+            cartContent.put("cartContent", cart.getCartContent());
+            return renderTemplate("product/checkout", cartContent);
         });
 
+        get("/payment", (req, res) -> {
+            HashMap<String, ArrayList> dummyHashMap = new HashMap<>();
+            return renderTemplate("product/checkout", dummyHashMap);
+        });
+
+        post("/payment", (req, res) -> {
+            String name = req.queryParams("name");
+            String email = req.queryParams("email");
+            res.redirect("/paid");
+            return "success";
+        });
+
+        get("/paid", (req, res) -> {
+            HashMap<String, ArrayList> dummyHashMap = new HashMap<>();
+            return renderTemplate("product/paid", dummyHashMap);
+        });
 
 
         // Add this line to your project to enable the debug screen
@@ -121,5 +130,8 @@ public class Main {
 
     }
 
+    private static String renderTemplate(String view, HashMap model) {
+        return new ThymeleafTemplateEngine().render(new ModelAndView(model, view));
+    }
 
 }
