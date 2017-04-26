@@ -64,16 +64,16 @@ public class Main {
             ArrayList<LineItem> products = new ArrayList<>();
             products = cart.getCartContent();
             ObjectMapper mapper = new ObjectMapper();
-            ArrayList<String> result=new ArrayList<>();
+            ArrayList<String> result = new ArrayList<>();
 
             for (int i = 0; i < products.size(); i++) {
 
-                LineItem prod=products.get(i);
+                LineItem prod = products.get(i);
                 String jsonAsd = mapper.writeValueAsString(prod);
                 result.add(jsonAsd);
-
+            }
             return result;
-
+        });
 
         get("/checkout", (req, res) -> {
             HashMap<String, ArrayList> cartContent = new HashMap<>();
@@ -83,7 +83,7 @@ public class Main {
 
         get("/payment", (req, res) -> {
             HashMap<String, ArrayList> dummyHashMap = new HashMap<>();
-            return renderTemplate("product/checkout", dummyHashMap);
+            return renderTemplate("product/payment", dummyHashMap);
         });
 
         post("/payment", (req, res) -> {
