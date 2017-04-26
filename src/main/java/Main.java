@@ -1,3 +1,4 @@
+import static com.sun.javafx.tools.resource.DeployResource.Type.data;
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
@@ -6,9 +7,17 @@ import com.codecool.shop.controller.CartController;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.sun.corba.se.spi.ior.ObjectKey;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main {
 
@@ -50,16 +59,43 @@ public class Main {
         get("/addToCart", (req, res) -> {
 
             Integer productId =  Integer.parseInt(req.queryParams("productId"));
-            System.out.println(1);
             Product product = ProductDaoMem.getInstance().find(productId);
-            System.out.println(2);
             cart.addToCart(product);
-            System.out.println(3);
-            System.out.println(cart.getCartContent());
-            System.out.println(4);
+//            System.out.println(cart.getCartContent());
             return "success";
 
         });
+
+        get("/getCartContent", (Request req, Response res) -> {
+
+            ArrayList<Product> products = new ArrayList<>();
+            products = cart.getCartContent();
+//            ObjectMapper mapper = new ObjectMapper();
+            String result = "";
+//
+//            for (int i = 0; i < products.size(); i++) {
+//
+//                System.out.println(object.getClass());
+//                String jsonAsd = mapper.writeValueAsString(object);
+//                result += jsonAsd;
+//                }
+
+            HashMap<String, Supplier> objects = new HashMap<>();
+
+            System.out.println("attempting convert");
+            ObjectMapper mapper = new ObjectMapper();
+            System.out.println(mapper);
+            Supplier supp = new Supplier("asd", "asd");
+            supp.addProduct(products.get(0));
+            objects.put("objects", supp);
+            System.out.println("objects put in map");
+            String jsonAsd = mapper.writeValueAsString(objects);
+            System.out.println("converted to json");
+            return jsonAsd;
+
+        });
+
+
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();

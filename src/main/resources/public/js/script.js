@@ -15,6 +15,30 @@ $(document).ready(function () {
 			}
 	});
 	})
+
+    $('.shopping-cart').on('click', function (e) {
+
+        $('.cart-modal').toggleClass('active');
+
+    });
+
+    $('.close-modal').on('click', function (e) {
+
+        $('.cart-modal').removeClass('active');
+
+    });
+
+
+    $(document).on('click', '.fa-shopping-cart', function(){
+        $.ajax({
+            url:'/getCartContent',
+            type: "get",
+            success: function(data){
+            	var object = JSON.parse(data);
+                console.log(object);
+            }
+        });
+    })
     
 })
 
