@@ -2,9 +2,6 @@ package com.codecool.shop.model;
 
 import java.util.ArrayList;
 
-/**
- * Created by robertgaspar on 25/04/2017.
- */
 public class ShoppingCart {
 
     private ArrayList<LineItem> cartContent = new ArrayList<>();
@@ -20,6 +17,8 @@ public class ShoppingCart {
         }
         return instance;
     }
+
+    public void addToCart(LineItem lineItem){ cartContent.add(lineItem); }
 
     public void addToCart(Product product) {
         cartContent.add(new LineItem(product));
