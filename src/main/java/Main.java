@@ -114,18 +114,31 @@ public class Main {
         supplierDataStore.add(amazon);
         Supplier lenovo = new Supplier("Lenovo", "Computers");
         supplierDataStore.add(lenovo);
+        Supplier HTC = new Supplier("HTC", "mobiles");
+        supplierDataStore.add(HTC);
+        Supplier shelter = new Supplier("HTC", "animals");
+        supplierDataStore.add(shelter);
+
 
         //setting up a new product category
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         productCategoryDataStore.add(tablet);
         ProductCategory laptop = new ProductCategory("Laptop", "Hardware", "Portable computers used for a variety of purposes.");
         productCategoryDataStore.add(laptop);
+        ProductCategory mobile = new ProductCategory("Mobile", "Hardware", "Portable telephones used for a variety of purposes.");
+        productCategoryDataStore.add(mobile);
+        ProductCategory puppy = new ProductCategory("Puppy", "Software", "Portable animals used for a variety of purposes.");
+        productCategoryDataStore.add(puppy);
 
         //setting up products and printing it
         productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
         productDataStore.add(new Product("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
         productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
         productDataStore.add(new Product("Asus XT98", 109, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", laptop, amazon));
+        productDataStore.add(new Product("H5", 120, "USD", "HTC's latest H5 mobile is a great value for media consumption.", mobile, HTC));
+        productDataStore.add(new Product("K3 lala", 80, "USD", "Lenovo's latest K3 mobile is a great value for media consumption.", mobile, lenovo));
+        productDataStore.add(new Product("Papillon", 30, "USD", "Lost puppy.", puppy, shelter));
+
 
 
     }
