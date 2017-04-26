@@ -57,7 +57,7 @@
 
     <div id="products" class="row list-group">
 
-        <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${item.products}">
+        <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${item.products}" th:attr="data-cat=${prod.productCategory.name}">
             <div class="thumbnail">
                 <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
                 <div class="caption">
