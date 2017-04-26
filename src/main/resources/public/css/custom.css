@@ -178,6 +178,12 @@
     transform: Scale(1.1);
 }
 
+.cart-item-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .cart-item {
     width: 100%;
     display: flex;

@@ -35,15 +35,45 @@ $(document).ready(function () {
 
 
     $(document).on('click', '.fa-shopping-cart', function(){
+        $('.cart-item-container').empty();
         $.ajax({
             url:'/getCartContent',
             type: "get",
             success: function(data){
-            	var object = JSON.parse(data);
-                console.log(object);
+            	var products = JSON.parse(data);
+                for(var i = 0; i < products.length; i++){
+                    var name = products[i].name;
+                    var quantity = products[i].defaultCurrency;
+                    var price = products[i].defaultPrice;
+                    var cartItem = populate(name, quantity, price);
+                    renderCartItems(cartItem);
+                }
+                
+                
             }
         });
     })
+
+
+    var populate = function(name, quantity, price) {
+        var cartItem = `<div class="cart-item">
+                        <div class="item-name">`+name+`</div>
+                        <div class="item-quantity">quantity: `+quantity+`</div>
+                        <div class="item-price">price: `+price+`</div>
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </div>`
+        return cartItem;
+    }
+
+    var renderCartItems = function(cartItem) {
+        $('.cart-item-container').append(cartItem);
+    }
+
+    //
+    // var renderModalItems(name, quantity, price){
+    //     $cartItem.find('.item-name').html(name);
+    //     console.log($cartItem);
+    // }
     
 })
 
