@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class ShoppingCart {
 
-    private ArrayList<Product> cartContent = new ArrayList<>();
+    private ArrayList<LineItem> cartContent = new ArrayList<>();
 
     private static ShoppingCart instance = null;
 
@@ -22,10 +22,10 @@ public class ShoppingCart {
     }
 
     public void addToCart(Product product) {
-        cartContent.add(product);
+        cartContent.add(new LineItem(product));
     }
 
-    public ArrayList<Product> getCartContent() {
+    public ArrayList<LineItem> getCartContent() {
         return cartContent;
     }
 
