@@ -13,7 +13,7 @@ $(document).ready(function () {
 		success: function(response){
 				console.log(response);
 			}
-	});
+	    });
 	})
 
     $('.shopping-cart').on('click', function (e) {
@@ -25,6 +25,11 @@ $(document).ready(function () {
     $('.close-modal').on('click', function (e) {
 
         $('.cart-modal').removeClass('active');
+
+    });
+    $('.checkout-button').on('click', function (e) {
+
+        window.location.replace("/checkout");
 
     });
 
