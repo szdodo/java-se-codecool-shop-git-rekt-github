@@ -71,11 +71,9 @@ public class Main {
                 LineItem prod=products.get(i);
                 String jsonAsd = mapper.writeValueAsString(prod);
                 result.add(jsonAsd);
-            }
 
             return result;
 
-        });
 
         get("/checkout", (req, res) -> {
             HashMap<String, ArrayList> cartContent = new HashMap<>();
