@@ -272,7 +272,7 @@ Products Container
     border: none;
 }
 
-.modal {
+.cart-modal {
     display: none;
     opacity: 0;
     position: fixed;
@@ -286,7 +286,7 @@ Products Container
     padding: 25px;
     border-radius: 5px;
     z-index: 10;
-    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 1);
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7);
     overflow: auto;
 }
 
