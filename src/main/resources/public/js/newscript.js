@@ -34,8 +34,6 @@ $(document).ready(function () {
     $(document).on('focusout', '.quantity-input', function(){
         var name = $(this).data('name');
         var quantity = $(this).val();
-        console.log(name);
-        console.log(quantity);
         $.ajax({
             url:'/updateShoppingCart?productName='+name+'&quantity='+quantity,
             type: "get",
@@ -55,6 +53,7 @@ $(document).ready(function () {
     $('.close-modal').on('click', function (e) {
 
         $('.cart-modal').removeClass('active');
+        checkCartSize();
 
     });
     $('.checkout-button').on('click', function (e) {
