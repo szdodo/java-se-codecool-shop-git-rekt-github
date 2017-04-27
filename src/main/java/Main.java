@@ -149,6 +149,10 @@ public class Main {
         supplierDataStore.add(apple);
         Supplier cornerVendor = new Supplier("CornerVendor", "Guess you'll have to figure this out yourself");
         supplierDataStore.add(cornerVendor);
+        Supplier stupidMemes = new Supplier("StupidMemes", "Silly memes from all over the world");
+        supplierDataStore.add(stupidMemes);
+        Supplier pfizer = new Supplier("Pfizer", "One of the world's largest pharmaceutical companies");
+        supplierDataStore.add(pfizer);
 
 
         //setting up a new product category
@@ -162,12 +166,18 @@ public class Main {
         productCategoryDataStore.add(dogShelter);
         ProductCategory drugs = new ProductCategory("Drugs", "Recreational use", "u w4nt some djanga, m8");
         productCategoryDataStore.add(drugs);
+        ProductCategory justWat = new ProductCategory("JustWat", "Fun", "Totally retarded things since '97.");
+        productCategoryDataStore.add(justWat);
+        ProductCategory memes = new ProductCategory("Memes", "Fun", "no explanation, fak u m8");
+        productCategoryDataStore.add(memes);
+        ProductCategory foodSupplement = new ProductCategory("FoodSupplement", "Health", "Protein without limits.");
+        productCategoryDataStore.add(foodSupplement);
 
         //setting up products and printing it
-        productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls.", tablet, amazon));
+        productDataStore.add(new Product("Amazon Fire HD 8", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls.", tablet, amazon));
         productDataStore.add(new Product("Lenovo IdeaPad", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports.", tablet, lenovo));
         productDataStore.add(new Product("Amazon Fire HD 8", 220, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
-        productDataStore.add(new Product("Asus XT98", 190, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", laptop, amazon));
+        productDataStore.add(new Product("Asus R13", 190, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", laptop, amazon));
         productDataStore.add(new Product("HTC H5", 520, "USD", "HTC's latest H5 mobile is a great value for media consumption.", mobile, htc));
         productDataStore.add(new Product("Lenovo K3", 410, "USD", "Lenovo's latest K3 mobile is a great value for media consumption.", mobile, lenovo));
         productDataStore.add(new Product("Papillon Mark II", 99.9f, "USD", "Basic dog shelter made from sturdy wood. 5 year warranty.", dogShelter, coverYourFur));
@@ -176,7 +186,12 @@ public class Main {
         productDataStore.add(new Product("LG G5", 440, "USD", "5.3\" IPS Quantum QHD Display & Metal Body and shit", mobile, lg));
         productDataStore.add(new Product("Apple iPhone", 800, "USD", "I don't have enough money but I still wanna look rich", mobile, apple));
         productDataStore.add(new Product("Apple MacBook", 1199, "USD", "I have too much money and I have no idea how to spend it responsibly", laptop, apple));
-
+        productDataStore.add(new Product("Flector Rapid", 10, "USD", "yo dawg i herd u liek pain so i brought yo soem painkillaz", drugs, pfizer));
+        productDataStore.add(new Product("Unsureness", 3333, "USD", "General Inability To Decide, fresh from 'Murica", justWat, stupidMemes));
+        productDataStore.add(new Product("Poo Puff", 0.5f, "USD", "'wat are you talking about, it definitely wasn't me'", justWat, stupidMemes));
+        productDataStore.add(new Product("Obi-Wan Kenobi", 11.5f, "USD", "'these are definitely not the droids you are looking for'", memes, stupidMemes));
+        productDataStore.add(new Product("BIO WHEY 100%", 12, "USD", "BiotechUSA protein at its finest. 100% refined beef collagen whey", foodSupplement, cornerVendor));
+        productDataStore.add(new Product("Ultra-Super Pack", 122, "USD", "A fine selection of quality protein products. Arnold would surely buy this", foodSupplement, cornerVendor));
     }
 
     private static String renderTemplate(String view, HashMap model) {

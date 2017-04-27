@@ -5,7 +5,7 @@
     <meta name="author" content="Codecool" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Codecool Shop</title>
+    <title>dat shop, boyz</title>
 
     <!-- Latest compiled and minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -35,7 +35,7 @@
 <body>
 
     <div class='navbar'>
-        <div class='logo'>codecool</div>
+        <div class='logo'>git shop or git rekt, m8</div>
         <div class='account-container'>
             <i class="fa fa-user" aria-hidden="true"></i>
             <div class='cart-desc'>My account</div>
@@ -90,6 +90,14 @@
                 <div class='menu-item-title'>Corner Vendor</div>
                 <div class='menu-item-number'>99</div>
             </div>
+            <div class='menu-item' data-title="StupidMemes">
+                <div class='menu-item-title'>StupidMemes Limited</div>
+                <div class='menu-item-number'>99</div>
+            </div>
+            <div class='menu-item' data-title="Pfizer">
+                <div class='menu-item-title'>Pfizer</div>
+                <div class='menu-item-number'>99</div>
+            </div>
             <div class='menu-item All' data-title="All">
                 <div class='menu-item-title'>All Products</div>
                 <div class='menu-item-number'>99</div>
@@ -105,7 +113,7 @@
                     Men's training shoe
                 </div>
                 <div class="product">
-                    <img src="http://placehold.it/350x200" />
+                    <img src="http://placehold.it/350x200" th:attr="src='/img/product_' + ${prod.id} + '.jpg'"/>
                 </div>
                 <div class='cta'>
                     <div class="price" th:text="${prod.getPrice()}">$130</div>
