@@ -40,12 +40,6 @@
     <div class="checkout-form-container">
         <div class="checkout-details">
             <p>Contents of your shopping cart:</p>
-            <div class="cart-item" th:each="product : ${cartContent.products}" th:with="prod=${product}" style="max-width: 500px;">
-                <div class="item-name" th:text="${prod.name}"></div>
-                <div class="item-quantity" th:text="${prod.quantity}"></div>
-                <div class="item-price" th:text="${prod.defaultPrice}"></div>
-                <div class="productCurrency" th:text="${prod.defaultCurrency}"></div>
-            </div>
             <table class="checkout-table">
                 <tr>
                     <th>Item name</th>
