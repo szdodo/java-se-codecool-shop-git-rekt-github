@@ -48,6 +48,17 @@ public class ShoppingCart {
         addPriceToTotal(newItem);
     }
 
+
+    public void updateCart(String name, Integer quantity){
+        ArrayList<LineItem> items = cartContent.get("products");
+        for (int i=0;i<items.size();i++){
+            if (items.get(i).name.equals(name)){
+                items.get(i).quantity=quantity;
+            }
+        }
+    }
+
+
     public HashMap<String, ArrayList> getCartContent() {
         return cartContent;
     }
@@ -67,8 +78,5 @@ public class ShoppingCart {
     public String getCartSize(){
         return cartSize.toString();
     }
-
-
-
 
 }
