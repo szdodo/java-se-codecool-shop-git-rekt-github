@@ -85,29 +85,6 @@
             </div>
         </div>
 
-        <div class="menu">
-            <div class='menu-item' data-title="Amazon">
-                <div class='menu-item-title'>Amazon</div>
-                <div class='menu-item-number'>13</div>
-            </div>
-            <div class='menu-item' data-title="Lenovo">
-                <div class='menu-item-title'>Lenovo</div>
-                <div class='menu-item-number'>88</div>
-            </div>
-            <div class='menu-item' data-title="HTC">
-                <div class='menu-item-title HTC'>HTC</div>
-                <div class='menu-item-number'>54</div>
-            </div>
-            <div class='menu-item'>
-                <div class='menu-item-title' data-title="Shelter">Shelter</div>
-                <div class='menu-item-number'>99</div>
-            </div>
-            <div class='menu-item All' data-title="All">
-                <div class='menu-item-title'>All Products</div>
-                <div class='menu-item-number'>99</div>
-            </div>
-        </div>
-
         <div class='products-container'>
             <div class='shop-card' th:each="product : ${products}" th:with="prod=${product}" th:attr="data-cat=${prod.productCategory.name}, data-sup=${prod.supplier.name}">
                 <div class="title" th:text="${prod.name}">
