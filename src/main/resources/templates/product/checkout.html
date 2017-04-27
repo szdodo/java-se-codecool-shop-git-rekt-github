@@ -37,30 +37,45 @@
 </div>
 
 <div class="container">
-    <p>Contents of your shopping cart:</p>
-    <div class="cart-item" th:each="product : ${cartContent.products}" th:with="prod=${product}" style="max-width: 500px;">
-        <div class="item-name" th:text="${prod.name}"></div>
-        <div class="item-quantity" th:text="${prod.quantity}"></div>
-        <div class="item-price" th:text="${prod.defaultPrice}"></div>
-        <div class="productCurrency" th:text="${prod.defaultCurrency}"></div>
+    <div class="checkout-form-container">
+        <div class="checkout-details">
+            <p>Contents of your shopping cart:</p>
+            <div class="cart-item" th:each="product : ${cartContent.products}" th:with="prod=${product}" style="max-width: 500px;">
+                <div class="item-name" th:text="${prod.name}"></div>
+                <div class="item-quantity" th:text="${prod.quantity}"></div>
+                <div class="item-price" th:text="${prod.defaultPrice}"></div>
+                <div class="productCurrency" th:text="${prod.defaultCurrency}"></div>
+            </div>
+            <table class="checkout-table">
+                <tr>
+                    <th>Item name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+                <tr th:each="product : ${cartContent.products}" th:with="prod=${product} ">
+                    <td th:text="${prod.name}"></td>
+                    <td th:text="${prod.quantity}"></td>
+                    <td th:text="${prod.defaultPrice}"></td>
+                </tr>
+            </table>
+            <div class ="totalPrice" th:each="price : ${totalPrice.totalPrice}" th:with="pr=${price}">
+                <div class="item-name">Total price: </div><div class="item-price" th:text="${pr}"></div>
+            </div>
+        </div>
+        <form action="/payment" method="post" class="checkout-form">
+                <label for="name">Name:</label>
+                <input type="text" size="71" id="name" required="true"/>
+                    <label for="email">E-mail address:</label>
+                <input type="text" size="71" id="email" required="true"/>
+                    <label for="phone">Phone number:</label>
+                <input type="text" size="71" id="phone" required="true"/>
+                    <label for="billing">Billing address:</label>
+                <input type="text" size="71" id="billing" required="true"/>
+                    <label for="shipping">Shipping address:</label>
+                <input type="text" size="71" id="shipping" required="true"/>
+                <input class="dropdown" type="submit" id="checkout" value="Proceed to payment"/>
+        </form>
     </div>
-    <div class ="totalPrice" th:each="price : ${totalPrice.totalPrice}" th:with="pr=${price}">
-        <div class="item-name">Total price: </div><div class="item-price" th:text="${pr}"></div>
-    </div>
-
-    <form style="margin-top: 50px;" action="/payment" method="post" class="checkout">
-            <label for="name">Name:</label>
-            <input type="text" size="71" id="name" required="true"/>
-                <label for="email">E-mail address:</label>
-            <input type="text" size="71" id="email" required="true"/>
-                <label for="phone">Phone number:</label>
-            <input type="text" size="71" id="phone" required="true"/>
-                <label for="billing">Billing address:</label>
-            <input type="text" size="71" id="billing" required="true"/>
-                <label for="shipping">Shipping address:</label>
-            <input type="text" size="71" id="shipping" required="true"/>
-            <input class="dropdown" type="submit" id="checkout" value="Proceed to payment"/>
-    </form>
     <div class="shopping-cart">
         <div class="dropdown" onclick="window.location = '/'">Back to the main page</div>
     </div>
