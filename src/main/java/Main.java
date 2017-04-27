@@ -84,7 +84,12 @@ public class Main {
 
         get("/checkout", (req, res) -> {
             HashMap<String, HashMap> cartContent = new HashMap<>();
+            HashMap<String, String> totalPrice = new HashMap<>();
+            totalPrice.put("totalPrice", cart.getTotalPrice());
+            System.out.println(totalPrice);
             cartContent.put("cartContent", cart.getCartContent());
+            cartContent.put("totalPrice", totalPrice);
+            System.out.println(cartContent);
             return renderTemplate("product/checkout", cartContent);
         });
 
@@ -96,7 +101,12 @@ public class Main {
         post("/payment", (req, res) -> {
             String name = req.queryParams("name");
             String email = req.queryParams("email");
-            res.redirect("/paid");
+            String phone = req.queryParams("phone");
+            String billing = req.queryParams("billing");
+            String shipping = req.queryParams("shipping");
+            Order order = Order.getInstance(name, email, phone, billing, shipping);
+            order.updateCart(cart);
+            res.redirect("/payment");
             return "success";
         });
 

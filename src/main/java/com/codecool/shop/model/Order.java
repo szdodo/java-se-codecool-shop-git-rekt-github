@@ -5,7 +5,7 @@ public class Order {
 
     private String name;
     private String email;
-    private Integer phoneNumber;
+    private String phoneNumber;
     private String billingAddress; //country,city,zipcode,address
     private String shippingAddress;
     private ShoppingCart cart;
@@ -17,7 +17,7 @@ public class Order {
         this.cart=cart;
     }
 
-    protected Order(String name, String email, Integer phoneNumber, String billingAddress, String shippingAddress){
+    protected Order(String name, String email, String phoneNumber, String billingAddress, String shippingAddress){
         this.name=name;
         this.email=email;
         this.phoneNumber=phoneNumber;
@@ -34,7 +34,7 @@ public class Order {
     }
 
 
-    public static Order getInstance(String name, String email, Integer phoneNumber, String billingAddress, String shippingAddress) {
+    public static Order getInstance(String name, String email, String phoneNumber, String billingAddress, String shippingAddress) {
         if (instance == null) {
             instance = new Order(name, email, phoneNumber, billingAddress, shippingAddress);
         }
