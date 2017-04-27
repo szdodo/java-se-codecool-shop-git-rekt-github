@@ -54,8 +54,16 @@ public class Main {
             Integer productId =  Integer.parseInt(req.queryParams("productId"));
             Product product = ProductDaoMem.getInstance().find(productId);
             cart.addToCart(product);
-            System.out.println(cart.getCartContent());
-            return "success";
+            Integer cartSize = cart.getCartContent().size();
+            String size = cartSize.toString();
+            return (size + " items");
+
+        });
+
+        get("/getCartSize", (req, res) -> {
+            Integer cartSize = cart.getCartContent().size();
+            String size = cartSize.toString();
+            return (size + " items");
 
         });
 
@@ -116,7 +124,7 @@ public class Main {
         supplierDataStore.add(lenovo);
         Supplier HTC = new Supplier("HTC", "mobiles");
         supplierDataStore.add(HTC);
-        Supplier shelter = new Supplier("HTC", "animals");
+        Supplier shelter = new Supplier("Shelter", "animals");
         supplierDataStore.add(shelter);
 
 

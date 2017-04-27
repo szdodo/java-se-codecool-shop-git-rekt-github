@@ -93,9 +93,7 @@ public class ProductController {
 
     public static ModelAndView renderAllProducts(Request req, Response res) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
-
         HashMap<String,List> params=new HashMap<>();
-
         params.put("products", productDataStore.getAll());
         System.out.println(params);
         return new ModelAndView(params, "product/newindex");
