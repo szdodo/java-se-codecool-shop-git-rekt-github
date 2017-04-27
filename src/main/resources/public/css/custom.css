@@ -60,3 +60,288 @@
 {
     margin: 0 0 11px;
 }
+
+.shopping-cart {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+/*.fa-shopping-cart {*/
+    /*color: #446CB3;*/
+/*}*/
+
+
+/* ##### FILTER STYLE ##### */
+
+.filter_container {
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter_title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #999;
+    color: #fff;
+    font-weight: 500;
+    width: 200px;
+    height: 50px;
+    border-radius: 3px;
+    border: 1px solid #fff;
+    cursor: pointer;
+}
+
+.dropdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #446CB3;
+    color: #fff;
+    font-weight: 500;
+    width: 200px;
+    height: 50px;
+    border-radius: 3px;
+    border: 1px solid #fff;
+    opacity: 1;
+    cursor: pointer;
+    transition: all 300ms;
+}
+
+.dropdown:hover {
+    background-color: rgba(68,108,179, 0.9);
+}
+
+.show_filter {
+    animation-name: show_filter;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes show_filter{
+    
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* MODAL */
+
+.cart-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: auto;
+    margin-left: -200px;
+    margin-top: -150px;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 5px;
+    z-index: 10;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+    color: #222;
+    overflow: auto;
+}
+
+.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cart-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+.cart-header .cart-title {
+    flex: 1;
+}
+
+.close-modal {
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: all 300ms;
+}
+
+.close-modal:hover {
+    transform: Scale(1.1);
+}
+
+.cart-item-container {
+    min-height: 220px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.cart-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.cart-item .item-name {
+    flex: 1;
+}
+
+.cart-item .item-quantity {
+    margin-right: 25px;
+    display: flex;
+}
+
+.quantity-input {
+    width: 35px;
+    height: 20px;
+    margin-left: 5px;
+    text-align: center;
+}
+
+.fa-trash {
+    margin-left: 10px;
+    color: #C0392B;
+    cursor: pointer;
+    transition: all 300ms;
+}
+
+.fa-trash:hover {
+    transform: Scale(1.4);
+}
+
+.checkout-container {
+    display: flex;
+    align-items:center;
+    align-self: flex-end;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.cart-total {
+    margin-right: 20px;
+}
+
+.checkout-button {
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #28406b;
+    padding: 12px 18px;
+    cursor: pointer;
+    transition: all 300ms;
+    line-height: .95;
+    border: none;
+    background: none;
+    outline: none;
+    border: 1px solid #28406b;
+    border-radius: 20px;
+}
+
+.checkout-button:hover {
+    background: linear-gradient(135deg, #3d61a1, #28406b);
+    color: #fff;
+    border: none;
+}
+
+.checkout-form-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.checkout-details {
+    min-width: 40%;
+}
+
+.checkout-form {
+    width: 400px;
+    min-width: 40%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.checkout-form input {
+    /*margin-top: 5px;*/
+    margin-bottom: 10px;
+}
+
+.checkout-form label {
+    margin-bottom: 0px;
+}
+
+
+.checkout-table {
+    width: 100%;
+}
+
+.checkout-table td th {
+    padding: 10px 5px;
+}
+
+td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+td:first-child {
+    padding-left: 10px;
+}
+
+th:first-child {
+    padding-left: 10px;
+}
+
+td:nth-last-child(1){
+    text-align: right;
+    padding-right: 10px;
+}
+
+th:nth-last-child(1){
+    text-align: right;
+    padding-right: 10px;
+}
+
+.checkout-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.totalPrice {
+    margin-top: 20px;
+    display: flex;
+}
+
+.totalPrice .item-name {
+    margin-right: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
