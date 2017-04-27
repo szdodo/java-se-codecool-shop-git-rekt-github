@@ -51,7 +51,7 @@ $(document).ready(function () {
 
     $(document).on('click', '.fa-shopping-cart', function(){
         $('.cart-item-container').empty();
-        // $('body').css('overflow', 'hidden');
+        $('body').css('overflow', 'hidden');
         $('')
         $.ajax({
             url:'/getCartContent',
@@ -68,6 +68,13 @@ $(document).ready(function () {
 
 
             }
+        });
+        $.ajax({
+            url:'/getTotalPrice',
+            type: "get",
+            success: function(data){
+                $('.cart-total').html(data);
+                }
         });
     })
 
