@@ -16,6 +16,7 @@ import spark.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProductController {
@@ -42,7 +43,7 @@ public class ProductController {
         par.put("products", productDataStore.getBy(productCategoryDataStore.find(catIdx)));
         catList.add(par);
         params.put("categories", catList);
-        return new ModelAndView(params, "product/index");
+        return new ModelAndView(params, "product/newindex");
     }
 
     public static ModelAndView renderProductsBySupplier(Request req, Response res, String supplier) {
@@ -67,7 +68,7 @@ public class ProductController {
         par.put("products", productDataStore.getBy(supplierDaoDataStore.find(supIdx)));
         suppList.add(par);
         params.put("categories", suppList);
-        return new ModelAndView(params, "product/index");
+        return new ModelAndView(params, "product/newindex");
     }
 
     public static ModelAndView renderProducts(Request req, Response res) {
@@ -87,7 +88,15 @@ public class ProductController {
         }
         params.put("categories", prodList);
         System.out.println(params);
-        return new ModelAndView(params, "product/index");
+        return new ModelAndView(params, "product/newindex");
+    }
+
+    public static ModelAndView renderAllProducts(Request req, Response res) {
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        HashMap<String,List> params=new HashMap<>();
+        params.put("products", productDataStore.getAll());
+        System.out.println(params);
+        return new ModelAndView(params, "product/newindex");
     }
 
 

@@ -67,9 +67,9 @@
     justify-content: flex-end;
 }
 
-.fa-shopping-cart {
-    color: #446CB3;
-}
+/*.fa-shopping-cart {*/
+    /*color: #446CB3;*/
+/*}*/
 
 
 /* ##### FILTER STYLE ##### */
@@ -148,6 +148,7 @@
     border-radius: 5px;
     z-index: 10;
     box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+    color: #222;
 }
 
 .active {

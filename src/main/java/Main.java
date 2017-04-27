@@ -46,7 +46,7 @@ public class Main {
             catch (Exception e) {
                 System.out.println("Error: invalid supplier");
             }
-            return new ThymeleafTemplateEngine().render(ProductController.renderProducts(req, res));
+            return new ThymeleafTemplateEngine().render(ProductController.renderAllProducts(req, res));
         });
 
         get("/addToCart", (req, res) -> {
@@ -54,8 +54,16 @@ public class Main {
             Integer productId =  Integer.parseInt(req.queryParams("productId"));
             Product product = ProductDaoMem.getInstance().find(productId);
             cart.addToCart(product);
-//            System.out.println(cart.getCartContent());
-            return "success";
+            Integer cartSize = cart.getCartContent().size();
+            String size = cartSize.toString();
+            return (size + " items");
+
+        });
+
+        get("/getCartSize", (req, res) -> {
+            Integer cartSize = cart.getCartContent().size();
+            String size = cartSize.toString();
+            return (size + " items");
 
         });
 
@@ -116,7 +124,7 @@ public class Main {
         supplierDataStore.add(lenovo);
         Supplier HTC = new Supplier("HTC", "mobiles");
         supplierDataStore.add(HTC);
-        Supplier shelter = new Supplier("HTC", "animals");
+        Supplier shelter = new Supplier("Shelter", "animals");
         supplierDataStore.add(shelter);
 
 
@@ -132,7 +140,7 @@ public class Main {
 
         //setting up products and printing it
         productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
-        productDataStore.add(new Product("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
+        productDataStore.add(new Product("Lenovo IdeaPad", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
         productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
         productDataStore.add(new Product("Asus XT98", 109, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", laptop, amazon));
         productDataStore.add(new Product("H5", 120, "USD", "HTC's latest H5 mobile is a great value for media consumption.", mobile, HTC));
