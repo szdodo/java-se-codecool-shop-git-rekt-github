@@ -26,7 +26,7 @@ public class LineItem
 
     public String toString() {
         return String.format("name: %1$s, " +
-                        "defaulPrice: %2$s, "
+                        "defaultPrice: %2$s, "
                 + "defaultCurrency: %3$s, " + "quantity: %4$s",
 
                 this.name,
