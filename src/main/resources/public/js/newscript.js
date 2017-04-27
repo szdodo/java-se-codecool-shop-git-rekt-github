@@ -31,6 +31,21 @@ $(document).ready(function () {
         });
     })
 
+    $(document).on('focusout', '.quantity-input', function(){
+        var name = $(this).data('name');
+        var quantity = $(this).val();
+        console.log(name);
+        console.log(quantity);
+        $.ajax({
+            url:'/updateShoppingCart?productName='+name+'&quantity='+quantity,
+            type: "get",
+            success: function(response){
+                console.log(response);
+            }
+        });
+    })
+
+
     $('.cart-container').on('click', function (e) {
 
         $('.cart-modal').toggleClass('active');
@@ -87,7 +102,7 @@ $(document).ready(function () {
     var populate = function(name, quantity, price) {
         var cartItem = `<div class="cart-item">
                         <div class="item-name">`+name+`</div>
-                        <div class="item-quantity">quantity: `+quantity+`</div>
+                        <div class="item-quantity">quantity: <input type="text" class="quantity-input" data-name="` + name + `" value="`+ quantity +`"></input> </div>
                         <div class="item-price">price: `+price+`</div>
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </div>`
