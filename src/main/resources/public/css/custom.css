@@ -198,6 +198,14 @@
 
 .cart-item .item-quantity {
     margin-right: 25px;
+    display: flex;
+}
+
+.quantity-input {
+    width: 35px;
+    height: 20px;
+    margin-left: 5px;
+    text-align: center;
 }
 
 .fa-trash {
