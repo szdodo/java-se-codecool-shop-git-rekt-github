@@ -146,7 +146,7 @@ Products Menu
     flex-direction: column;
     align-items: center;
     min-width: 260px;
-    height: 350px;
+    height: 400px;
     margin-top: 10px;
     background: -webkit-linear-gradient(top, #3a404d, #181c26);
     background: linear-gradient(to bottom, #3a404d, #181c26);
@@ -167,9 +167,16 @@ Products Menu
     transition: all 300ms;
 }
 
+.menu-item:nth-child(10) {
+    background: #2f4b7d;
+}
+
+.menu-item:nth-child(9) {
+    background: #36568f;
+}
+
 .menu-item:nth-child(8) {
     background: #2f4b7d;
-    border-radius: 0 0 10px 10px;
 }
 
 .menu-item:nth-child(7) {
