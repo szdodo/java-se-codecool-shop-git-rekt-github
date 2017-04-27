@@ -10,11 +10,8 @@ import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import spark.ModelAndView;
-
-import javax.sound.sampled.Line;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 public class Main {
 
@@ -130,12 +127,18 @@ public class Main {
         //setting up a new supplier
         Supplier amazon = new Supplier("Amazon", "Digital content and services");
         supplierDataStore.add(amazon);
-        Supplier lenovo = new Supplier("Lenovo", "Computers");
+        Supplier lenovo = new Supplier("Lenovo", "Computers and laptops");
         supplierDataStore.add(lenovo);
-        Supplier HTC = new Supplier("HTC", "mobiles");
-        supplierDataStore.add(HTC);
-        Supplier shelter = new Supplier("Shelter", "animals");
-        supplierDataStore.add(shelter);
+        Supplier htc = new Supplier("HTC", "Mobile phones and accessories");
+        supplierDataStore.add(htc);
+        Supplier coverYourFur = new Supplier("Cover-Your-Fur", "High-quality animal shelters");
+        supplierDataStore.add(coverYourFur);
+        Supplier lg = new Supplier("LG", "Mobile phones and accessories");
+        supplierDataStore.add(lg);
+        Supplier apple = new Supplier("Apple", "Computers, laptops, tablets, mobile phones and accessories");
+        supplierDataStore.add(apple);
+        Supplier cornerVendor = new Supplier("CornerVendor", "Guess you'll have to figure this out yourself");
+        supplierDataStore.add(cornerVendor);
 
 
         //setting up a new product category
@@ -145,19 +148,24 @@ public class Main {
         productCategoryDataStore.add(laptop);
         ProductCategory mobile = new ProductCategory("Mobile", "Hardware", "Portable telephones used for a variety of purposes.");
         productCategoryDataStore.add(mobile);
-        ProductCategory puppy = new ProductCategory("Puppy", "Software", "Portable animals used for a variety of purposes.");
-        productCategoryDataStore.add(puppy);
+        ProductCategory dogShelter = new ProductCategory("Dog shelter", "Outdoor appliances", "Outdoor structures to protect your pets from the weather.");
+        productCategoryDataStore.add(dogShelter);
+        ProductCategory drugs = new ProductCategory("Drugs", "Recreational use", "u w4nt some djanga, m8");
+        productCategoryDataStore.add(drugs);
 
         //setting up products and printing it
-        productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
-        productDataStore.add(new Product("Lenovo IdeaPad", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
+        productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls.", tablet, amazon));
+        productDataStore.add(new Product("Lenovo IdeaPad", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports.", tablet, lenovo));
         productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
         productDataStore.add(new Product("Asus XT98", 109, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", laptop, amazon));
-        productDataStore.add(new Product("H5", 120, "USD", "HTC's latest H5 mobile is a great value for media consumption.", mobile, HTC));
-        productDataStore.add(new Product("K3 lala", 80, "USD", "Lenovo's latest K3 mobile is a great value for media consumption.", mobile, lenovo));
-        productDataStore.add(new Product("Papillon", 30, "USD", "Lost puppy.", puppy, shelter));
-
-
+        productDataStore.add(new Product("HTC H5", 120, "USD", "HTC's latest H5 mobile is a great value for media consumption.", mobile, htc));
+        productDataStore.add(new Product("Lenovo K3", 80, "USD", "Lenovo's latest K3 mobile is a great value for media consumption.", mobile, lenovo));
+        productDataStore.add(new Product("Papillon Mark II", 30, "USD", "Basic dog shelter made from sturdy wood. 5 year warranty.", dogShelter, coverYourFur));
+        productDataStore.add(new Product("Weed", 30, "USD", "you have the money, i have the means smoek weeeed evry daaaay", drugs, cornerVendor));
+        productDataStore.add(new Product("LG G6", 30, "USD", "Big screen. Small Phone. Blue sky. Green planet.", mobile, lg));
+        productDataStore.add(new Product("LG G5", 30, "USD", "5.3\" IPS Quantum QHD Display & Metal Body and shit", mobile, lg));
+        productDataStore.add(new Product("Apple iPhone", 30, "USD", "I don't have enough money but I still wanna look rich", mobile, apple));
+        productDataStore.add(new Product("Apple MacBook", 30, "USD", "I have too much money and I have no idea how to spend it responsibly", laptop, apple));
 
     }
 
