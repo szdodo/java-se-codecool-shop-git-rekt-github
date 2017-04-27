@@ -1,12 +1,17 @@
 package com.codecool.shop.model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 public class ShoppingCart {
 
-    private ArrayList<LineItem> cartContent = new ArrayList<>();
-
+    private HashMap<String, ArrayList> cartContent = new HashMap<>();
     private static ShoppingCart instance = null;
+    private Float totalPrice=(float)0.0;
+    private static Integer cartSize=0;
+
 
     protected ShoppingCart() {
     }
@@ -18,19 +23,52 @@ public class ShoppingCart {
         return instance;
     }
 
-    public void addToCart(LineItem lineItem){ cartContent.add(lineItem); }
 
     public void addToCart(Product product) {
-        cartContent.add(new LineItem(product));
+        cartSize+=1;
+        LineItem newItem = new LineItem(product);
+        ArrayList<LineItem> items = new ArrayList<>();
+        if (cartContent.size()==0){
+            items.add(new LineItem(product));
+            cartContent.put("products", items);
+        }else {
+            items = cartContent.get("products");
+            boolean exist=false;
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i).name.equals(newItem.name)){
+                    items.get(i).quantity+=1;
+                    exist=true;
+                }
+            }
+            if(!exist) {
+                items.add(newItem);
+            }
+
+        }
+        addPriceToTotal(newItem);
     }
 
-    public ArrayList<LineItem> getCartContent() {
+    public HashMap<String, ArrayList> getCartContent() {
         return cartContent;
     }
 
     public void emptyCart(){
         cartContent.clear();
     }
+
+    protected void addPriceToTotal(LineItem newItem){
+        totalPrice+=newItem.defaultPrice;
+    }
+
+    public String getTotalPrice(){
+        return this.totalPrice.toString();
+    }
+
+    public String getCartSize(){
+        return cartSize.toString();
+    }
+
+
 
 
 }
