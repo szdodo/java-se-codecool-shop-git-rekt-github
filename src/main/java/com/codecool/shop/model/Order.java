@@ -28,9 +28,10 @@ public class Order {
 
 
     public void updateCart(ShoppingCart cart){
-        this.cart.emptyCart();
+        if(this.cart!=null) {
+            this.cart.emptyCart();
+        }
         this.cart=cart;
-
     }
 
 
