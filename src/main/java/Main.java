@@ -162,7 +162,7 @@ public class Main {
         productCategoryDataStore.add(laptop);
         ProductCategory mobile = new ProductCategory("Mobile", "Hardware", "Portable telephones used for a variety of purposes.");
         productCategoryDataStore.add(mobile);
-        ProductCategory dogShelter = new ProductCategory("Dog shelter", "Outdoor appliances", "Outdoor structures to protect your pets from the weather.");
+        ProductCategory dogShelter = new ProductCategory("DogShelter", "Outdoor appliances", "Outdoor structures to protect your pets from the weather.");
         productCategoryDataStore.add(dogShelter);
         ProductCategory drugs = new ProductCategory("Drugs", "Recreational use", "u w4nt some djanga, m8");
         productCategoryDataStore.add(drugs);
