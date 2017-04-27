@@ -149,6 +149,7 @@
     z-index: 10;
     box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
     color: #222;
+    overflow: auto;
 }
 
 .active {
@@ -180,9 +181,11 @@
 }
 
 .cart-item-container {
+    min-height: 220px;
     width: 100%;
     display: flex;
     flex-direction: column;
+    overflow: auto;
 }
 
 .cart-item {
@@ -290,6 +293,41 @@
     padding: 10px 5px;
 }
 
+td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+td:first-child {
+    padding-left: 10px;
+}
+
+th:first-child {
+    padding-left: 10px;
+}
+
+td:nth-last-child(1){
+    text-align: right;
+    padding-right: 10px;
+}
+
+th:nth-last-child(1){
+    text-align: right;
+    padding-right: 10px;
+}
+
+.checkout-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.totalPrice {
+    margin-top: 20px;
+    display: flex;
+}
+
+.totalPrice .item-name {
+    margin-right: 5px;
+}
 
 
 
