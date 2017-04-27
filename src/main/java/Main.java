@@ -71,7 +71,6 @@ public class Main {
         });
 
         get("/getCartContent", (Request req, Response res) -> {
-
             HashMap<String, ArrayList> products = new HashMap<>();
             products = cart.getCartContent();
             ArrayList<LineItem> items=new ArrayList<>();
@@ -107,6 +106,14 @@ public class Main {
         get("/paid", (req, res) -> {
             HashMap<String, ArrayList> dummyHashMap = new HashMap<>();
             return renderTemplate("product/paid", dummyHashMap);
+        });
+
+        get("/updateShoppingCart", (req, res) -> {
+            String productName = req.queryParams("productName");
+            String productQuantity = req.queryParams("quantity");
+            Integer quantity= Integer.parseInt(productQuantity);
+            cart.updateCart(productName,quantity);
+            return "succes";
         });
 
 
