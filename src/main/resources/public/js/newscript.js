@@ -60,13 +60,18 @@ $(document).ready(function () {
                 var products = JSON.parse(data);
                 for(var i = 0; i < products.length; i++){
                     var name = products[i].name;
-                    var quantity = products[i].defaultCurrency;
+                    var quantity = products[i].quantity;
                     var price = products[i].defaultPrice;
                     var cartItem = populate(name, quantity, price);
                     renderCartItems(cartItem);
                 }
-
-
+            }
+        });
+        $.ajax({
+            url:'/getTotalPrice',
+            type: "get",
+            success: function(data){
+                $('.cart-total').html(data);
             }
         });
         $.ajax({

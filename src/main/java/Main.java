@@ -14,6 +14,7 @@ import spark.ModelAndView;
 import javax.sound.sampled.Line;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class Main {
 
@@ -50,33 +51,35 @@ public class Main {
         });
 
         get("/addToCart", (req, res) -> {
-
             Integer productId =  Integer.parseInt(req.queryParams("productId"));
             Product product = ProductDaoMem.getInstance().find(productId);
             cart.addToCart(product);
             Integer cartSize = cart.getCartContent().size();
-            String size = cartSize.toString();
+            String size = cart.getCartSize();
             return (size + " items");
 
         });
 
         get("/getCartSize", (req, res) -> {
-            Integer cartSize = cart.getCartContent().size();
-            String size = cartSize.toString();
-            return (size + " items");
+            String cartSize = cart.getCartSize();
+            return (cartSize + " items");
+        });
 
+        get("/getTotalPrice", (req, res) -> {
+            String cartTotalPrice = cart.getTotalPrice();
+            return ("Total: " + cartTotalPrice + " $");
         });
 
         get("/getCartContent", (Request req, Response res) -> {
 
-            ArrayList<LineItem> products = new ArrayList<>();
+            HashMap<String, ArrayList> products = new HashMap<>();
             products = cart.getCartContent();
+            ArrayList<LineItem> items=new ArrayList<>();
+            items = cart.getCartContent().get("products");
             ObjectMapper mapper = new ObjectMapper();
             ArrayList<String> result = new ArrayList<>();
-
-            for (int i = 0; i < products.size(); i++) {
-
-                LineItem prod = products.get(i);
+            for (int i = 0; i < items.size(); i++) {
+                LineItem prod = items.get(i);
                 String jsonAsd = mapper.writeValueAsString(prod);
                 result.add(jsonAsd);
             }
@@ -84,7 +87,7 @@ public class Main {
         });
 
         get("/checkout", (req, res) -> {
-            HashMap<String, ArrayList> cartContent = new HashMap<>();
+            HashMap<String, HashMap> cartContent = new HashMap<>();
             cartContent.put("cartContent", cart.getCartContent());
             return renderTemplate("product/checkout", cartContent);
         });
