@@ -156,16 +156,16 @@ public class Main {
         //setting up products and printing it
         productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls.", tablet, amazon));
         productDataStore.add(new Product("Lenovo IdeaPad", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports.", tablet, lenovo));
-        productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
-        productDataStore.add(new Product("Asus XT98", 109, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", laptop, amazon));
-        productDataStore.add(new Product("HTC H5", 120, "USD", "HTC's latest H5 mobile is a great value for media consumption.", mobile, htc));
-        productDataStore.add(new Product("Lenovo K3", 80, "USD", "Lenovo's latest K3 mobile is a great value for media consumption.", mobile, lenovo));
-        productDataStore.add(new Product("Papillon Mark II", 30, "USD", "Basic dog shelter made from sturdy wood. 5 year warranty.", dogShelter, coverYourFur));
+        productDataStore.add(new Product("Amazon Fire HD 8", 220, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
+        productDataStore.add(new Product("Asus XT98", 190, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", laptop, amazon));
+        productDataStore.add(new Product("HTC H5", 520, "USD", "HTC's latest H5 mobile is a great value for media consumption.", mobile, htc));
+        productDataStore.add(new Product("Lenovo K3", 410, "USD", "Lenovo's latest K3 mobile is a great value for media consumption.", mobile, lenovo));
+        productDataStore.add(new Product("Papillon Mark II", 99.9f, "USD", "Basic dog shelter made from sturdy wood. 5 year warranty.", dogShelter, coverYourFur));
         productDataStore.add(new Product("Weed", 30, "USD", "you have the money, i have the means smoek weeeed evry daaaay", drugs, cornerVendor));
-        productDataStore.add(new Product("LG G6", 30, "USD", "Big screen. Small Phone. Blue sky. Green planet.", mobile, lg));
-        productDataStore.add(new Product("LG G5", 30, "USD", "5.3\" IPS Quantum QHD Display & Metal Body and shit", mobile, lg));
-        productDataStore.add(new Product("Apple iPhone", 30, "USD", "I don't have enough money but I still wanna look rich", mobile, apple));
-        productDataStore.add(new Product("Apple MacBook", 30, "USD", "I have too much money and I have no idea how to spend it responsibly", laptop, apple));
+        productDataStore.add(new Product("LG G6", 560, "USD", "Big screen. Small Phone. Blue sky. Green planet.", mobile, lg));
+        productDataStore.add(new Product("LG G5", 440, "USD", "5.3\" IPS Quantum QHD Display & Metal Body and shit", mobile, lg));
+        productDataStore.add(new Product("Apple iPhone", 800, "USD", "I don't have enough money but I still wanna look rich", mobile, apple));
+        productDataStore.add(new Product("Apple MacBook", 1199, "USD", "I have too much money and I have no idea how to spend it responsibly", laptop, apple));
 
     }
 
