@@ -9,25 +9,34 @@ public class Order {
     private String billingAddress; //country,city,zipcode,address
     private String shippingAddress;
     private ShoppingCart cart;
+    private boolean paid;
     private static Order instance = null;
 
 
-    public void addPersonalInfo(String name, String email, Integer phoneNumber, String billingAddress, String shippingAddress){
+    public void addPersonalInfo(ShoppingCart cart){
+        this.cart=cart;
+    }
+
+    protected Order(String name, String email, Integer phoneNumber, String billingAddress, String shippingAddress){
         this.name=name;
         this.email=email;
         this.phoneNumber=phoneNumber;
         this.billingAddress=billingAddress;
         this.shippingAddress=shippingAddress;
+        this.paid=false;
     }
 
-    protected Order(ShoppingCart cart){
+
+    public void updateCart(ShoppingCart cart){
+        this.cart.emptyCart();
         this.cart=cart;
+
     }
 
 
-    public static Order getInstance(ShoppingCart cart) {
+    public static Order getInstance(String name, String email, Integer phoneNumber, String billingAddress, String shippingAddress) {
         if (instance == null) {
-            instance = new Order(cart);
+            instance = new Order(name, email, phoneNumber, billingAddress, shippingAddress);
         }
         return instance;
     }
