@@ -56,13 +56,18 @@ public class ShoppingCart {
             if (items.get(i).name.equals(name)){
                 if(quantity==0) {
                     cartSize-=items.get(i).quantity;
-                    removePriceFromTotal(items.get(i).quantity, items.get(i).defaultPrice);
+                    changePriceFromTotal(items.get(i).quantity, items.get(i).defaultPrice, false);
                     items.remove(i);
 
                 }else{
                     Integer change = items.get(i).quantity-quantity;
+                    changePriceFromTotal(items.get(i).quantity, items.get(i).defaultPrice, false);
                     cartSize -= change;
                     items.get(i).quantity = quantity;
+
+                    changePriceFromTotal(items.get(i).quantity, items.get(i).defaultPrice, true);
+                    
+
                 }
             }
         }
@@ -77,9 +82,13 @@ public class ShoppingCart {
         cartContent.clear();
     }
 
-    protected void removePriceFromTotal(Integer quantity, Float price){
+    protected void changePriceFromTotal(Integer quantity, Float price,boolean positive){
         Float change=quantity*price;
-        totalPrice-=change;
+        if (positive){
+            totalPrice+=change;
+        }else {
+            totalPrice -= change;
+        }
     }
 
     protected void addPriceToTotal(LineItem newItem){
