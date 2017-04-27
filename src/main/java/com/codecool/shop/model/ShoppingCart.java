@@ -1,5 +1,6 @@
 package com.codecool.shop.model;
 
+import javax.sound.sampled.Line;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,7 +54,16 @@ public class ShoppingCart {
         ArrayList<LineItem> items = cartContent.get("products");
         for (int i=0;i<items.size();i++){
             if (items.get(i).name.equals(name)){
-                items.get(i).quantity=quantity;
+                if(quantity==0) {
+                    cartSize-=items.get(i).quantity;
+                    removePriceFromTotal(items.get(i).quantity, items.get(i).defaultPrice);
+                    items.remove(i);
+
+                }else{
+                    Integer change = items.get(i).quantity-quantity;
+                    cartSize -= change;
+                    items.get(i).quantity = quantity;
+                }
             }
         }
     }
@@ -65,6 +75,11 @@ public class ShoppingCart {
 
     public void emptyCart(){
         cartContent.clear();
+    }
+
+    protected void removePriceFromTotal(Integer quantity, Float price){
+        Float change=quantity*price;
+        totalPrice-=change;
     }
 
     protected void addPriceToTotal(LineItem newItem){
