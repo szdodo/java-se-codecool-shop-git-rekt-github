@@ -49,7 +49,7 @@ $(document).ready(function () {
     });
 
 
-    $(document).on('click', '.fa-shopping-cart', function(){
+    $(document).on('click', '.cart-container', function(){
         $('.cart-item-container').empty();
         $('body').css('overflow', 'hidden');
         $('')
