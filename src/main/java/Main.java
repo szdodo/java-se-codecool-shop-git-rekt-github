@@ -30,20 +30,6 @@ public class Main {
         //get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
         // Equivalent with above
         get("/", (Request req, Response res) -> {
-            try {
-                String category = req.queryParams("category");
-                return new ThymeleafTemplateEngine().render(ProductController.renderProductsByCategory(req, res, category));
-            }
-            catch (Exception e) {
-                System.out.println("Error: invalid category");
-            }
-            try {
-                String supplier = req.queryParams("supplier");
-                return new ThymeleafTemplateEngine().render(ProductController.renderProductsBySupplier(req, res, supplier));
-            }
-            catch (Exception e) {
-                System.out.println("Error: invalid supplier");
-            }
             return new ThymeleafTemplateEngine().render(ProductController.renderAllProducts(req, res));
         });
 
@@ -174,7 +160,7 @@ public class Main {
         productCategoryDataStore.add(foodSupplement);
 
         //setting up products and printing it
-        productDataStore.add(new Product("Amazon Fire HD 8", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls.", tablet, amazon));
+        productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls.", tablet, amazon));
         productDataStore.add(new Product("Lenovo IdeaPad", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports.", tablet, lenovo));
         productDataStore.add(new Product("Amazon Fire HD 8", 220, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
         productDataStore.add(new Product("Asus R13", 190, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", laptop, amazon));
