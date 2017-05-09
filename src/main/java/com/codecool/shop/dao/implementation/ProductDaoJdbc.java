@@ -12,8 +12,8 @@ import java.util.List;
 
 public class ProductDaoJdbc {
 
-    private static final String DATABASE = "jdbc:postgresql://localhost:5432/robertgaspar";
-    private static final String DB_USER = "robertgaspar";
+    private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
+    private static final String DB_USER = DBPassword.user;
     private static final String DB_PASSWORD = DBPassword.password;
     private static ArrayList<Product> products = new ArrayList<>();
     private static ArrayList<Supplier> suppliers = new ArrayList<>();
