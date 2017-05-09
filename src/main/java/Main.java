@@ -183,5 +183,7 @@ public class Main {
     private static String renderTemplate(String view, HashMap model) {
         return new ThymeleafTemplateEngine().render(new ModelAndView(model, view));
     }
+    
+    
 
 }

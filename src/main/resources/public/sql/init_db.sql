@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS category
   id SERIAL PRIMARY KEY,
   name varchar(40),
   department varchar(40),
-  description VARCHAR(40)
+  description VARCHAR(400)
 );
 
 CREATE TABLE IF NOT EXISTS supplier
@@ -25,9 +25,9 @@ CREATE TABLE IF NOT EXISTS product
 (
   id SERIAL PRIMARY KEY,
   name VARCHAR(40),
-  description VARCHAR(40),
   defaultprice FLOAT,
   defaultcurrency VARCHAR(40),
+  description VARCHAR(400),
   category_id INT REFERENCES category (id),
   supplier_id INT REFERENCES supplier (id)
 );
