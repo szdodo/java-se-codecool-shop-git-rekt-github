@@ -13,8 +13,8 @@ import java.util.List;
 public class ProductDaoJdbc {
 
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    private static final String DB_USER = DBPassword.user;
-    private static final String DB_PASSWORD = DBPassword.password;
+    private static final String DB_USER = DBPassword.readFile().get(0);
+    private static final String DB_PASSWORD = DBPassword.readFile().get(1);
     private static ArrayList<Product> products = new ArrayList<>();
     private static ArrayList<Supplier> suppliers = new ArrayList<>();
     private static ProductDaoJdbc instance = null;
@@ -32,13 +32,13 @@ public class ProductDaoJdbc {
 //    @Override
     public ArrayList<Supplier> getSuppliers() {
 
-        String query = "SELECT * FROM supplier JOIN product ON supplier_id = supplier.id JOIN category ON category_id = category.id;";
+        String query = "SELECT * FROM supplier;";
 
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)){
             while (resultSet.next()){
-                System.out.println(resultSet.getString("supplier_id"));
+//                System.out.println(resultSet.getString("supplier_id"));
                 Supplier supplier= new Supplier(Integer.parseInt(resultSet.getString("id")), resultSet.getString("name"), "asdasd");
                 suppliers.add(supplier);
             }
@@ -47,8 +47,6 @@ public class ProductDaoJdbc {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
 
         return suppliers;
     }
