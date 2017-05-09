@@ -4,6 +4,7 @@ import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Product;
@@ -22,9 +23,9 @@ import java.util.Map;
 public class ProductController {
 
     public static ModelAndView renderAllProducts(Request req, Response res) {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductDaoJdbc productDataStore = ProductDaoJdbc.getInstance();
         HashMap<String, List> params = new HashMap<>();
-        params.put("products", productDataStore.getAll());
+        params.put("products", productDataStore.generateProducts());
         System.out.println(params);
         return new ModelAndView(params, "product/index");
     }
