@@ -24,6 +24,8 @@ public class Main {
 
         // populate some data for the memory storage
         populateData();
+        ProductDaoJdbc asd = ProductDaoJdbc.getInstance() ;
+        System.out.println(asd.getSuppliers());
         ShoppingCart cart = ShoppingCart.getInstance();
 
         // Always add generic routes to the end
