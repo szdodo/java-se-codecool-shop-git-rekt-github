@@ -25,6 +25,7 @@ public class ProductDaoJdbc extends DBConnection{
 
     //    @Override
     public ArrayList<Product> generateProducts() {
+        products.clear();
 
         String query = "SELECT * FROM product;";
 
