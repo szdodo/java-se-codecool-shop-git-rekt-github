@@ -5,6 +5,6 @@ package com.codecool.shop.dao.implementation;
  */
 public class DBPassword {
 
-    public static String password = "virtualoso";
+    public static String password = "";
 
 }
