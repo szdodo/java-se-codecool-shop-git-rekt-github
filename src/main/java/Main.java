@@ -1,6 +1,7 @@
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
+import com.codecool.shop.controller.CartController;
 import com.codecool.shop.controller.CustomerController;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.*;
@@ -41,11 +42,14 @@ public class Main {
         });
 
         get("/addToCart", (req, res) -> {
+            CartController cartController = new CartController();
             Integer productId =  Integer.parseInt(req.queryParams("productId"));
             Product product = ProductDaoMem.getInstance().find(productId);
             cart.addToCart(product);
             Integer cartSize = cart.getCartContent().size();
             String size = cart.getCartSize();
+            String userId = req.session().attribute("currentUser");
+            cartController.checkCartDB(userId, productId);
             return (size + " items");
 
         });
