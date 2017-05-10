@@ -42,3 +42,8 @@ INSERT INTO product(name, defaultprice, defaultcurrency, description,category_id
         ('BIO WHEY 100', 12, 'USD', 'BiotechUSA protein at its finest. 100% refined beef collagen whey', 8, 7),
         ('Ultra-Super Pack', 122, 'USD', 'A fine selection of quality protein products. Arnold would surely buy this', 8, 7);
 
+
+
+INSERT INTO customer(user_id, name, username, email, password, shipping_address, billing_address, welcome_email)
+VALUES
+  ('yqeo&12','Kis Pista', 'kp', 'kp@gmail.com', 'asd', 'asd1', 'asd2', false);

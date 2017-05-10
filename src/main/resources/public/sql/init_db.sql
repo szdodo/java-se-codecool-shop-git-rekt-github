@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS product
 CREATE TABLE IF NOT EXISTS cart
 (
   id SERIAL PRIMARY KEY,
+  user_id VARCHAR(100),
   quantity INT,
   product_id INT REFERENCES product (id)
 );
@@ -42,6 +43,7 @@ CREATE TABLE IF NOT EXISTS cart
 CREATE TABLE IF NOT EXISTS orders
 (
   id SERIAL PRIMARY KEY,
+  user_id VARCHAR(100),
   quantity INT,
   status VARCHAR(100),
   product_id INT REFERENCES product (id)
@@ -51,13 +53,14 @@ CREATE TABLE IF NOT EXISTS orders
 CREATE TABLE IF NOT EXISTS customer
 (
   id SERIAL PRIMARY KEY,
+  user_id VARCHAR(100),
   name VARCHAR(100),
   username VARCHAR(100) UNIQUE,
   email VARCHAR(100) UNIQUE,
   password VARCHAR(100),
   billing_address VARCHAR(200),
   shipping_address VARCHAR(200),
-  welcomeEmail BOOLEAN,
+  welcome_email BOOLEAN,
   order_id INT REFERENCES orders (id),
   cart_id INT REFERENCES cart (id)
 );
