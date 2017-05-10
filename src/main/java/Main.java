@@ -1,6 +1,7 @@
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
+import com.codecool.shop.controller.CustomerController;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
@@ -112,7 +113,34 @@ public class Main {
             String productQuantity = req.queryParams("quantity");
             Integer quantity= Integer.parseInt(productQuantity);
             cart.updateCart(productName,quantity);
-            return "succes";
+            return "success";
+        });
+
+        get("/login", (req, res) -> {
+            HashMap<String, ArrayList> dummyHashMap = new HashMap<>();
+            return renderTemplate("product/login", dummyHashMap);
+        });
+
+        post("/login", (req, res) -> {
+            CustomerController customerController = new CustomerController();
+            req.session().removeAttribute("currentUser");
+            String username = req.queryParams("username");
+            String password = req.queryParams("password");
+            if (customerController.loginValidation(username, password)) {
+                req.session().attribute("currentUser", customerController.getUserId(username));
+                String print = req.session().attribute("currentUser");
+                System.out.println(print);
+                res.redirect("/");
+                return "login successful";
+            }
+            res.redirect("/login");
+            return "login failed";
+        });
+
+        get("/logout", (req, res) -> {
+            req.session().removeAttribute("currentUser");
+            HashMap<String, ArrayList> dummyHashMap = new HashMap<>();
+            return renderTemplate("product/index", dummyHashMap);
         });
 
 
