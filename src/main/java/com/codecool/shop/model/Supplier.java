@@ -2,12 +2,12 @@ package com.codecool.shop.model;
 
 import java.util.ArrayList;
 
-
 public class Supplier extends BaseModel {
     private ArrayList<Product> products;
 
     public Supplier(String name, String description) {
         super(name);
+        this.description = description;
         this.products = new ArrayList<>();
     }
 
@@ -24,7 +24,7 @@ public class Supplier extends BaseModel {
         return this.products;
     }
 
-    public void addProduct(Product product) {
+    void addProduct(Product product) {
         this.products.add(product);
     }
 

@@ -13,13 +13,13 @@ import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import spark.ModelAndView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Main {
 
     public static void main(String[] args) {
-
         // default server settings
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
         staticFileLocation("/public");
@@ -27,44 +27,42 @@ public class Main {
 
         // populate some data for the memory storage
         populateData();
-        SupplierDaoJdbc supp = SupplierDaoJdbc.getInstance();
-        ProductCategoryDaoJdbc prodCat = ProductCategoryDaoJdbc.getInstance();
-        System.out.println(supp.getAll());
-        System.out.println(prodCat.getAll());
-        CartController cartController = new CartController();        
+
+        // generating Supplier and Product category objects from the DB
+        SupplierDaoJdbc suppliers = SupplierDaoJdbc.getInstance();
+        ProductCategoryDaoJdbc prodCategs = ProductCategoryDaoJdbc.getInstance();
+        suppliers.getAll();
+        prodCategs.getAll();
+
+        // generating controller instances
+        CartController cartController = new CartController();
+        OrderController orderController = new OrderController();
+        CustomerController customerController = new CustomerController();
+
+        // generating shopping cart
         ShoppingCart cart = ShoppingCart.getInstance();
 
         // Always add generic routes to the end
-        //get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
-        // Equivalent with above
         get("/", (Request req, Response res) -> {
             return new ThymeleafTemplateEngine().render(ProductController.renderAllProducts(req, res));
         });
 
         get("/addToCart", (req, res) -> {
-            Integer productId =  Integer.parseInt(req.queryParams("productId"));
-            Product product = ProductDaoMem.getInstance().find(productId);
-            cart.addToCart(product);
-            Integer cartSize = cart.getCartContent().size();
+            Integer productId = Integer.parseInt(req.queryParams("productId"));
             String size = cart.getCartSize();
             String userId = req.session().attribute("currentUser");
-            if(userId == null) {
+            if (userId == null) {
                 return "user is not logged in";
-            }
-            else {
+            } else {
                 cartController.checkCartDB(userId, productId);
                 return (size + " items");
             }
-
-
         });
 
         get("/addCartToOrder", (req, res) -> {
-            OrderController orderController = new OrderController();
             String userId = req.session().attribute("currentUser");
             orderController.addCartToOrder(userId);
             return "success";
-
         });
 
         get("/getCartSize", (req, res) -> {
@@ -78,32 +76,15 @@ public class Main {
             return ("Total: " + cartTotalPrice + " $");
         });
 
-
-        get("/getCartContent", (Request req, Response res) -> {
-            HashMap<String, ArrayList> products = new HashMap<>();
-            products = cart.getCartContent();
-            ArrayList<LineItem> items=new ArrayList<>();
-            items = cart.getCartContent().get("products");
-            ObjectMapper mapper = new ObjectMapper();
-            ArrayList<String> result = new ArrayList<>();
-            for (int i = 0; i < items.size(); i++) {
-                LineItem prod = items.get(i);
-                String jsonAsd = mapper.writeValueAsString(prod);
-                result.add(jsonAsd);
-            }
-            return result;
-        });
-
         get("/getCartContentFromDB", (Request req, Response res) -> {
-            ArrayList<LineItem> items=new ArrayList<>();
             String userID = req.session().attribute("currentUser");
-            items = cartController.getCartContentDB(userID);
+            ArrayList<LineItem> items = cartController.getCartContentDB(userID);
             ObjectMapper mapper = new ObjectMapper();
             ArrayList<String> result = new ArrayList<>();
             for (int i = 0; i < items.size(); i++) {
                 LineItem prod = items.get(i);
-                String jsonAsd = mapper.writeValueAsString(prod);
-                result.add(jsonAsd);
+                String productJson = mapper.writeValueAsString(prod);
+                result.add(productJson);
             }
             return result;
         });
@@ -146,7 +127,6 @@ public class Main {
             Integer quantity = Integer.parseInt(req.queryParams("quantity"));
             String userID = req.session().attribute("currentUser");
             cartController.updateQuantityDB(userID, productName, quantity);
-
             return "success";
         });
 
@@ -156,14 +136,12 @@ public class Main {
         });
 
         post("/login", (req, res) -> {
-            CustomerController customerController = new CustomerController();
             req.session().removeAttribute("currentUser");
             String username = req.queryParams("username");
             String password = req.queryParams("password");
+
             if (customerController.loginValidation(username, password)) {
                 req.session().attribute("currentUser", customerController.getUserId(username));
-                String print = req.session().attribute("currentUser");
-                System.out.println(print);
                 res.redirect("/");
                 return "login successful";
             }
@@ -177,18 +155,16 @@ public class Main {
             return renderTemplate("product/index", dummyHashMap);
         });
 
-
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
     }
 
-    public static void populateData() {
-
+    private static void populateData() {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
-        //setting up a new supplier
+        //setting up new suppliers
         Supplier amazon = new Supplier("Amazon", "Digital content and services");
         supplierDataStore.add(amazon);
         Supplier lenovo = new Supplier("Lenovo", "Computers and laptops");
@@ -208,8 +184,7 @@ public class Main {
         Supplier pfizer = new Supplier("Pfizer", "One of the world's largest pharmaceutical companies");
         supplierDataStore.add(pfizer);
 
-
-        //setting up a new product category
+        //setting up new product categories
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         productCategoryDataStore.add(tablet);
         ProductCategory laptop = new ProductCategory("Laptop", "Hardware", "Portable computers used for a variety of purposes.");
@@ -227,7 +202,7 @@ public class Main {
         ProductCategory foodSupplement = new ProductCategory("FoodSupplement", "Health", "Protein without limits.");
         productCategoryDataStore.add(foodSupplement);
 
-        //setting up products and printing it
+        //setting up products and printing them
         productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls.", tablet, amazon));
         productDataStore.add(new Product("Lenovo IdeaPad", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports.", tablet, lenovo));
         productDataStore.add(new Product("Amazon Fire HD 8", 220, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
@@ -251,7 +226,4 @@ public class Main {
     private static String renderTemplate(String view, HashMap model) {
         return new ThymeleafTemplateEngine().render(new ModelAndView(model, view));
     }
-    
-    
-
 }
