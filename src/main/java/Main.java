@@ -27,13 +27,11 @@ public class Main {
 
         // populate some data for the memory storage
         populateData();
-//        ProductDaoJdbc produ = ProductDaoJdbc.getInstance() ;
         SupplierDaoJdbc supp = SupplierDaoJdbc.getInstance();
         ProductCategoryDaoJdbc prodCat = ProductCategoryDaoJdbc.getInstance();
-        CartController cartController = new CartController();
-        System.out.println(supp.generateSuppliers());
-        System.out.println(prodCat.generateProductCategories());
-//        System.out.println(produ.generateProducts());
+        System.out.println(supp.getAll());
+        System.out.println(prodCat.getAll());
+        CartController cartController = new CartController();        
         ShoppingCart cart = ShoppingCart.getInstance();
 
         // Always add generic routes to the end

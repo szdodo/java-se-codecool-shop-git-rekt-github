@@ -1,12 +1,14 @@
 package com.codecool.shop.dao.implementation;
 
 
+import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
-public class SupplierDaoJdbc extends DBConnection{
+public class SupplierDaoJdbc extends DBConnection implements SupplierDao {
 
     private static ArrayList<Supplier> suppliers = new ArrayList<>();
     private static SupplierDaoJdbc instance = null;
@@ -21,8 +23,8 @@ public class SupplierDaoJdbc extends DBConnection{
         return instance;
     }
 
-    //    @Override
-    public ArrayList<Supplier> generateSuppliers() {
+    @Override
+    public ArrayList<Supplier> getAll() {
 
         String query = "SELECT * FROM supplier;";
 
@@ -50,4 +52,35 @@ public class SupplierDaoJdbc extends DBConnection{
         }
         return result;
     }
+
+    @Override
+    public void add(Supplier supplier){
+        int newId=suppliers.size()+1;
+        String query = "INSERT INTO supplier (id, name) VALUES (" +newId+",'" + supplier.getName() +"');";
+        executeQuery(query);
+    }
+
+    @Override
+    public Supplier find(int id){
+        String query="SELECT * FROM supplier WHERE id="+id+";";
+        Supplier foundSupplier=null;
+        try (Connection connection = getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)){
+            while (resultSet.next()){
+                foundSupplier = new Supplier(Integer.parseInt(resultSet.getString("id")), resultSet.getString("name"),"");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return foundSupplier;
+
+    }
+
+    @Override
+    public void remove(int id){
+        String query="DELETE FROM supplier WHERE id="+ id +";";
+        executeQuery(query);
+    }
+
 }
