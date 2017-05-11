@@ -4,9 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-class DBPassword {
+public class DBPassword {
 
-    static ArrayList<String> readFile() {
+    public static ArrayList<String> readFile() {
         String filename = "db_config.txt";
         ArrayList<String> records = new ArrayList<>();
 

@@ -2,6 +2,8 @@ package com.codecool.shop.dao;
 
 
 import com.codecool.shop.dao.implementation.*;
+
+import com.codecool.shop.dbconnection.DBPassword;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
