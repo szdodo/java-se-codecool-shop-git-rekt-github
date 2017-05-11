@@ -1,13 +1,17 @@
 $(document).ready(function () {
 
     $('.menu').hide();
+    $('#crcard-dropdown').hide();
+    $('.paypal-wrapper').hide();
+    $('.ccard-wrapper').hide();
+    // $('.button').hide();
 
-    $(document).on('click', '.filter-cat-button', function() {
+    $(document).on('click', '.filter-cat-button', function () {
         $('.menu').hide(300);
         $('.category-menu').show(300);
     })
 
-    $(document).on('click', '.filter-sup-button', function() {
+    $(document).on('click', '.filter-sup-button', function () {
         $('.menu').hide(300);
         $('.supplier-menu').show(300);
     })
@@ -16,61 +20,52 @@ $(document).ready(function () {
         var title = $(this).data('title');
         $('.shop-card').fadeOut(300);
 
-        setTimeout(function () { 
-            if(title === "All"){
+        setTimeout(function () {
+            if (title === "All") {
                 $('.shop-card').fadeIn(300);
             } else {
-                $('*[data-sup='+title+']').fadeIn(300);
-                $('*[data-cat='+title+']').fadeIn(300);
+                $('*[data-sup=' + title + ']').fadeIn(300);
+                $('*[data-cat=' + title + ']').fadeIn(300);
             }
         }, 300);
-
     });
 
-    $(document).on('click', '#my_account', function(){
-        $.ajax({
-            url:'/addCartToOrder',
-            type: "get",
-            success: function(response){
-                console.log(response)
-            }
-        });
+    $(document).on('click', '#my_account', function () {
+       window.location.replace("/login");
     });
 
-
-    $(document).on('click', '.button', function(){
+    $(document).on('click', '.button', function () {
         var btn = $(this)
         btn.addClass('clicked').delay(500)
         event.preventDefault();
         var productId = $(this).data('product_id');
         $.ajax({
-            url:'/addToCart?productId='+productId,
+            url: '/addToCart?productId=' + productId,
             type: "get",
-            success: function(response){
-                if(response == "user is not logged in") {
+            success: function (response) {
+                if (response == "user is not logged in") {
                     window.location.replace("/login");
                 } else {
                     $('.cart-content').html(checkCartSize());
                 }
-                
             }
         });
-        setTimeout(function () { 
+        setTimeout(function () {
             btn.removeClass('clicked');
         }, 500);
     });
 
-    $(document).on('focusout', '.quantity-input', function(){
+    $(document).on('focusout', '.quantity-input', function () {
         var name = $(this).data('name');
         var quantity = $(this).val();
-        if( quantity == "0" ){
+        if (quantity == "0") {
             $(this).parent().parent().hide(300);
             getTotalPrice();
         }
         $.ajax({
-            url:'/updateShoppingCart?productName='+name+'&quantity='+quantity,
+            url: '/updateShoppingCart?productName=' + name + '&quantity=' + quantity,
             type: "get",
-            success: function(response){
+            success: function (response) {
                 console.log(response);
                 checkCartSize();
                 getTotalPrice();
@@ -78,12 +73,12 @@ $(document).ready(function () {
         });
     });
 
-    $(document).on('click', '.fa-trash', function(){
+    $(document).on('click', '.fa-trash', function () {
         var name = $(this).data('name');
         $.ajax({
-            url:'/updateShoppingCart?productName='+name+'&quantity=0',
+            url: '/updateShoppingCart?productName=' + name + '&quantity=0',
             type: "get",
-            success: function(response){
+            success: function (response) {
                 console.log(response);
                 checkCartSize();
             }
@@ -97,28 +92,38 @@ $(document).ready(function () {
         checkCartSize();
 
     });
+
     $('.checkout-button').on('click', function (e) {
-
-        window.location.replace("/checkout");
-
+        window.location.replace("/pay");
     });
 
+    $('#sign-out').on('click', function (e) {
+        window.location.replace("/logout");
+    });
 
-    $(document).on('click', '.cart-container', function(){
-        if($('.cart-content').text() == "0 items"){
-            alert('Your basket is empty!');
+    $('.or-register').on('click', function (e) {
+        window.location.replace("/register");
+    });
+
+    $('.or-login').on('click', function (e) {
+        window.location.replace("/login");
+    });
+
+    $(document).on('click', '.cart-container', function () {
+        if ($('.cart-content').text() == "0 items") {
+            alert('Your cart is empty!');
         }
         else {
             $('.cart-item-container').empty();
             $('body').css('overflow', 'hidden');
             $('')
             $.ajax({
-                url:'/getCartContentFromDB',
+                url: '/getCartContentFromDB',
                 type: "get",
-                success: function(data){
+                success: function (data) {
                     var products = JSON.parse(data);
                     console.log(products);
-                    for(var i = 0; i < products.length; i++){
+                    for (var i = 0; i < products.length; i++) {
                         var name = products[i].name;
                         var quantity = products[i].quantity;
                         var price = products[i].defaultPrice;
@@ -133,26 +138,26 @@ $(document).ready(function () {
     })
 
 
-    var populate = function(name, quantity, price) {
+    var populate = function (name, quantity, price) {
         var cartItem = `<div class="cart-item">
-                        <div class="item-name">`+name+`</div>
-                        <div class="item-quantity">quantity: <input type="text" class="quantity-input" data-name="` + name + `" value="`+ quantity +`"></input> </div>
-                        <div class="item-price">price: `+price+`</div>
+                        <div class="item-name">` + name + `</div>
+                        <div class="item-quantity">quantity: <input type="text" class="quantity-input" data-name="` + name + `" value="` + quantity + `"></input> </div>
+                        <div class="item-price">price: ` + price + `</div>
                         <i class="fa fa-trash" aria-hidden="true" data-name="` + name + `"></i>
                     </div>`
         return cartItem;
     }
 
-    var renderCartItems = function(cartItem) {
+    var renderCartItems = function (cartItem) {
         $('.cart-item-container').append(cartItem);
     }
 
-    var checkCartSize = function(){
+    var checkCartSize = function () {
         $.ajax({
-            url:'/getCartSize',
+            url: '/getCartSize',
             type: "get",
-            success: function(response){
-                if(response == null) {
+            success: function (response) {
+                if (response == null) {
                     $('.cart-content').html(0 + " items");
                 }
                 else {
@@ -162,25 +167,61 @@ $(document).ready(function () {
         });
     }
 
-    var getTotalPrice = function(){
+    var checkUserLoggedIn = function () {
         $.ajax({
-                url:'/getTotalPrice',
-                type: "get",
-                success: function(data){
-                    $('.cart-total').html(data);
+            url: '/checkUser',
+            type: "get",
+            success: function (response) {
+                if (response == "null") {
+                    console.log("none");
+                    $('#sign-out').css("display", "none");
                 }
-            });
+                else {
+                    console.log("none");
+                    $('#sign-out').css("display", "flex");
+                }
+            }
+        });
+    }
+
+    var getTotalPrice = function () {
+        $.ajax({
+            url: '/getTotalPrice',
+            type: "get",
+            success: function (data) {
+                $('.cart-total').html(data);
+            }
+        });
     }
 
     checkCartSize();
+    checkUserLoggedIn();
 
-    $( document ).on('keydown', function (e)  {
+    $(document).on('keydown', function (e) {
         if (e.keyCode === 27) {
             $('.cart-modal').removeClass('active');
-        };
+        }
+        ;
     });
 
+    $(document).on('click', '#show-crcard-option', function () {
+        var menuBox = $('#crcard-dropdown');
+        menuBox.show(300);
+    });
+
+    $(document).on('click', '#hide-crcard-option', function () {
+        var menuBox = $('#crcard-dropdown');
+        menuBox.hide(300);
+    });
+
+    $('#ppal').click(function () {
+        $('.ccard-wrapper').hide();
+        $('.button').show();
+        $('.paypal-wrapper').show();
+    })
+    $('#ccard').click(function () {
+        $('.paypal-wrapper').hide();
+        $('.button').show();
+        $('.ccard-wrapper').show();
+    })
 })
-
-
-

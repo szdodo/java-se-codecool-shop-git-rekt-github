@@ -1,7 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
-
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dbconnection.DBConnection;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -28,7 +28,6 @@ public class ProductDaoJdbc extends DBConnection implements ProductDao {
     @Override
     public ArrayList<Product> getAll() {
         products.clear();
-
         String query = "SELECT * FROM product;";
 
         try (Connection connection = getConnection();
@@ -44,11 +43,9 @@ public class ProductDaoJdbc extends DBConnection implements ProductDao {
                 Product product = new Product(Integer.parseInt(resultSet.getString("id")), resultSet.getString("name"), resultSet.getFloat("defaultPrice"), resultSet.getString("defaultCurrency"), resultSet.getString("description"), tempCateg, tempSup);
                 products.add(product);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return products;
     }
 
@@ -65,12 +62,13 @@ public class ProductDaoJdbc extends DBConnection implements ProductDao {
 
     @Override
     public Product find(int id) {
-        String query="SELECT * FROM product WHERE id="+id+";";
-        Product foundProduct=null;
+        String query = "SELECT * FROM product WHERE id=" + id + ";";
+        Product foundProduct = null;
+
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)){
-            while (resultSet.next()){
+             ResultSet resultSet = statement.executeQuery(query)) {
+            while (resultSet.next()) {
                 foundProduct = resultProduct(resultSet);
             }
         } catch (SQLException e) {
@@ -81,21 +79,20 @@ public class ProductDaoJdbc extends DBConnection implements ProductDao {
 
     @Override
     public void remove(int id) {
-        String query="DELETE FROM product WHERE id="+ id +";";
+        String query = "DELETE FROM product WHERE id=" + id + ";";
         executeQuery(query);
-
     }
 
     @Override
     public List<Product> getBy(Supplier supplier) {
-        String query="SELECT * FROM product WHERE supplier_id="+supplier.getId()+";";
+        String query = "SELECT * FROM product WHERE supplier_id=" + supplier.getId() + ";";
         List<Product> prod = getBy(query);
         return prod;
     }
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
-        String query="SELECT * FROM product WHERE category_id="+productCategory.getId()+";";
+        String query = "SELECT * FROM product WHERE category_id=" + productCategory.getId() + ";";
         List<Product> prod = getBy(query);
         return prod;
     }
@@ -104,9 +101,9 @@ public class ProductDaoJdbc extends DBConnection implements ProductDao {
         List<Product> prod = new ArrayList<>();
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)){
-            while (resultSet.next()){
-                Product foundProduct=resultProduct(resultSet);
+             ResultSet resultSet = statement.executeQuery(query)) {
+            while (resultSet.next()) {
+                Product foundProduct = resultProduct(resultSet);
                 prod.add(foundProduct);
             }
         } catch (SQLException e) {
@@ -116,7 +113,7 @@ public class ProductDaoJdbc extends DBConnection implements ProductDao {
     }
 
 
-    private Product resultProduct(ResultSet resultSet) throws SQLException{
+    private Product resultProduct(ResultSet resultSet) throws SQLException {
         String supplierId = resultSet.getString("supplier_id");
         String categoryId = resultSet.getString("category_id");
         Supplier tempSup = SupplierDaoJdbc.getSupplier(supplierId);
@@ -128,5 +125,4 @@ public class ProductDaoJdbc extends DBConnection implements ProductDao {
                 tempCateg, tempSup);
         return foundProduct;
     }
-
 }

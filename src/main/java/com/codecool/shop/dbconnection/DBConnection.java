@@ -1,4 +1,4 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.dbconnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,19 +11,17 @@ public abstract class DBConnection {
     private static final String DB_USER = DBPassword.readFile().get(0);
     private static final String DB_PASSWORD = DBPassword.readFile().get(1);
 
-    public Connection getConnection() throws SQLException {
+    protected Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
                 DATABASE,
                 DB_USER,
                 DB_PASSWORD);
     }
 
-    public void executeQuery(String query) {
+    protected void executeQuery(String query) {
         try (Connection connection = getConnection();
-             Statement statement =connection.createStatement();
-        ){
+             Statement statement = connection.createStatement()) {
             statement.execute(query);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

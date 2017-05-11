@@ -3,6 +3,7 @@ package com.codecool.shop.model;
 import java.util.ArrayList;
 
 public class ProductCategory extends BaseModel {
+
     private String department;
     private ArrayList<Product> products;
 
@@ -35,7 +36,7 @@ public class ProductCategory extends BaseModel {
         return this.products;
     }
 
-    public void addProduct(Product product) {
+    void addProduct(Product product) {
         this.products.add(product);
     }
 
