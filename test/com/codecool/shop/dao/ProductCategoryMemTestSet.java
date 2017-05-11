@@ -34,6 +34,6 @@ public class ProductCategoryMemTestSet extends ProductCategoryDaoTest{
     @Override
     @Test
     public void testIsGetAllWorking(){
-        assertEquals(2,dao.getAll().size());
+        assertEquals(3,dao.getAll().size());
     }
 }

@@ -14,18 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 abstract class ProductDaoTest {
 
-    static ProductDao dao;
+    static ProductDao dao=null;
 
     @BeforeAll
     public static void setup(){}
 
     @Test
-    public void testIsSupplierDaoSingleton(){
-        List<Product> daoList=new ArrayList<>(dao.getAll());
-        ProductDao fakeDao=ProductDaoMem.getInstance();
-        List<Product> fakeList=new ArrayList<>(fakeDao.getAll());
-        assertEquals(daoList,fakeList);
-    }
+    abstract public void testIsProductDaoSingleton();
 
     @Test
     public void testIsAddAddingElements(){
@@ -38,10 +33,7 @@ abstract class ProductDaoTest {
     }
 
     @Test
-    public void testIsFindWorking(){
-        Product found=dao.find(1);
-        assertEquals("Amazon Fire HD 8",found.getName());
-    }
+    abstract public void testIsFindWorking();
 
     @Test
     public void testRemoveRemovingElements(){
@@ -52,9 +44,7 @@ abstract class ProductDaoTest {
     }
 
     @Test
-    public void testIsGetAllWorking(){
-        assertEquals(2,dao.getAll().size());
-    }
+    abstract public void testIsGetAllWorking();
 
 
 

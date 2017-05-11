@@ -56,10 +56,9 @@ public class ProductDaoJdbc extends DBConnection implements ProductDao {
     @Override
     public void add(Product product) {
         int newId = products.size() + 1;
-        String query = "INSERT INTO product (id, name, defaultprice, defaultcurrency, " +
-                "description, category_id, supplier_id)" +
-                " VALUES (" + newId + ",'" + product.getName() + "','" + product.getDefaultPrice()
-                + "','" + product.getDefaultCurrency() + "','" + product.getDescription() + "',"
+        String query = "INSERT INTO product (id, name, defaultprice, defaultcurrency, description, category_id, supplier_id)" +
+                " VALUES (" + newId + ",'" + product.getName() + "'," + product.getDefaultPrice()
+                + ",'" + product.getDefaultCurrency() + "'," + product.getDescription() + "',"
                 + product.getProductCategory().getId() + "," + product.getSupplier().getId() + ");";
         executeQuery(query);
     }

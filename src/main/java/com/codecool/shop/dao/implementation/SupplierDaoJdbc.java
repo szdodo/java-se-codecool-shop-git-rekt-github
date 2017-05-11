@@ -77,10 +77,5 @@ public class SupplierDaoJdbc extends DBConnection implements SupplierDao {
 
     }
 
-    @Override
-    public void remove(int id){
-        String query="DELETE FROM supplier WHERE id="+ id +";";
-        executeQuery(query);
-    }
 
 }

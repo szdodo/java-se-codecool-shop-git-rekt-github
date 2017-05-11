@@ -1,13 +1,10 @@
 package com.codecool.shop.dao;
 
 import com.codecool.shop.dao.implementation.DBConnection;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.model.ProductCategory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 abstract class ProductCategoryDaoTest extends DBConnection {
@@ -20,6 +17,9 @@ abstract class ProductCategoryDaoTest extends DBConnection {
 
     @Test
     abstract public void testIsProductCategoryDaoSingleton();
+
+    @Test
+    abstract public void testIsGetAllWorking();
 
     @Test
     public void testIsAddAddingElements(){
@@ -35,15 +35,6 @@ abstract class ProductCategoryDaoTest extends DBConnection {
         assertEquals("Tablet",found.getName());
     }
 
-    @Test
-    public void testRemoveRemovingElements(){
-        int daoSize=dao.getAll().size();
-        dao.remove(2);
-        int newDaoSize=dao.getAll().size();
-        assertEquals(daoSize-1, newDaoSize);
-    }
 
-    @Test
-    abstract public void testIsGetAllWorking();
 
 }

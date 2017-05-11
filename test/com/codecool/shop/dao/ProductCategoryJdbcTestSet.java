@@ -1,20 +1,16 @@
 package com.codecool.shop.dao;
 
 
-import com.codecool.shop.dao.implementation.DBConnection;
-import com.codecool.shop.dao.implementation.DBPassword;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoJdbc;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.dao.implementation.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,6 +23,21 @@ public class ProductCategoryJdbcTestSet extends ProductCategoryDaoTest {
 
     @BeforeAll
     public static void setup() {
+        try {
+            Connection con = DriverManager.getConnection(
+                    DATABASE,
+                    DB_USER,
+                    DB_PASSWORD);
+            ScriptRunner runner = new ScriptRunner(con, false, true);
+            runner.runScript(new BufferedReader(new FileReader("src/main/resources/public/sql/init_db.sql")));
+            runner.runScript(new BufferedReader(new FileReader("src/main/resources/public/sql/create_data.sql")));
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
         dao = ProductCategoryDaoJdbc.getInstance();
         dao.getAll();
     }
@@ -41,7 +52,7 @@ public class ProductCategoryJdbcTestSet extends ProductCategoryDaoTest {
     @Override
     @Test
     public void testIsGetAllWorking(){
-        assertEquals(8,dao.getAll());
+        assertEquals(9,dao.getAll().size());
     }
 
 }

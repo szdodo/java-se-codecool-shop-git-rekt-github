@@ -77,11 +77,5 @@ public class ProductCategoryDaoJdbc extends DBConnection implements ProductCateg
 
     }
 
-    @Override
-    public void remove(int id){
-        String query="DELETE FROM category WHERE id="+ id +";";
-        executeQuery(query);
-    }
-
 
 }
