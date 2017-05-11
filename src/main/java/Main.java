@@ -135,6 +135,25 @@ public class Main {
             return renderTemplate("product/login", dummyHashMap);
         });
 
+        get("/register", (req, res) -> {
+            HashMap<String, ArrayList> dummyHashMap = new HashMap<>();
+            return renderTemplate("product/register", dummyHashMap);
+        });
+
+        post("/register", (req, res) -> {
+
+            String name = req.queryParams("name");
+            String email = req.queryParams("email");
+            String username = req.queryParams("username");
+            String password = req.queryParams("password");
+            String address = req.queryParams("address");
+            String data = name + email + username + password + address;
+            customerController.registerUser(name, email, username, password, address);
+
+            res.redirect("/");
+            return 1;
+        });
+
         post("/login", (req, res) -> {
             req.session().removeAttribute("currentUser");
             String username = req.queryParams("username");
@@ -152,7 +171,18 @@ public class Main {
         get("/logout", (req, res) -> {
             req.session().removeAttribute("currentUser");
             HashMap<String, ArrayList> dummyHashMap = new HashMap<>();
-            return renderTemplate("product/index", dummyHashMap);
+            res.redirect("/");
+            return 1;
+        });
+
+        get("/checkUser", (req, res) -> {
+            String user = req.session().attribute("currentUser");
+            if(user == null) {
+                return "null";
+            }
+            else {
+                return user;
+            }
         });
 
         // Add this line to your project to enable the debug screen
