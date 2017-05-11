@@ -31,14 +31,18 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#my_account', function () {
-        $.ajax({
-            url: '/addCartToOrder',
-            type: "get",
-            success: function (response) {
-                console.log(response)
-            }
-        });
+       window.location.replace("/login");
     });
+
+    // $(document).on('click', '#my_account', function () {
+    //     $.ajax({
+    //         url: '/addCartToOrder',
+    //         type: "get",
+    //         success: function (response) {
+    //             console.log(response)
+    //         }
+    //     });
+    // });
 
 
     $(document).on('click', '.button', function () {
@@ -99,8 +103,21 @@ $(document).ready(function () {
         checkCartSize();
 
     });
+
     $('.checkout-button').on('click', function (e) {
         window.location.replace("/checkout");
+    });
+
+    $('#sign-out').on('click', function (e) {
+        window.location.replace("/logout");
+    });
+
+    $('.or-register').on('click', function (e) {
+        window.location.replace("/register");
+    });
+
+    $('.or-login').on('click', function (e) {
+        window.location.replace("/login");
     });
 
     $(document).on('click', '.cart-container', function () {
@@ -161,6 +178,23 @@ $(document).ready(function () {
         });
     }
 
+    var checkUserLoggedIn = function () {
+        $.ajax({
+            url: '/checkUser',
+            type: "get",
+            success: function (response) {
+                if (response == "null") {
+                    console.log("none");
+                    $('#sign-out').css("display", "none");
+                }
+                else {
+                    console.log("none");
+                    $('#sign-out').css("display", "flex");
+                }
+            }
+        });
+    }
+
     var getTotalPrice = function () {
         $.ajax({
             url: '/getTotalPrice',
@@ -172,6 +206,7 @@ $(document).ready(function () {
     }
 
     checkCartSize();
+    checkUserLoggedIn();
 
     $(document).on('keydown', function (e) {
         if (e.keyCode === 27) {
