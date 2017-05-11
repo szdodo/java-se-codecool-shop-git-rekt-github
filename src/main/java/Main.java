@@ -30,6 +30,7 @@ public class Main {
 //        ProductDaoJdbc produ = ProductDaoJdbc.getInstance() ;
         SupplierDaoJdbc supp = SupplierDaoJdbc.getInstance();
         ProductCategoryDaoJdbc prodCat = ProductCategoryDaoJdbc.getInstance();
+        CartController cartController = new CartController();
         System.out.println(supp.generateSuppliers());
         System.out.println(prodCat.generateProductCategories());
 //        System.out.println(produ.generateProducts());
@@ -43,7 +44,6 @@ public class Main {
         });
 
         get("/addToCart", (req, res) -> {
-            CartController cartController = new CartController();
             Integer productId =  Integer.parseInt(req.queryParams("productId"));
             Product product = ProductDaoMem.getInstance().find(productId);
             cart.addToCart(product);
@@ -70,15 +70,13 @@ public class Main {
         });
 
         get("/getCartSize", (req, res) -> {
-            CartController ccc = new CartController();
             String userID = req.session().attribute("currentUser");
-            return (ccc.getCartSize(userID));
+            return (cartController.getCartSize(userID));
         });
 
         get("/getTotalPrice", (req, res) -> {
-            CartController cc = new CartController();
             String userID = req.session().attribute("currentUser");
-            String cartTotalPrice = cc.getTotalPrice(userID);
+            String cartTotalPrice = cartController.getTotalPrice(userID);
             return ("Total: " + cartTotalPrice + " $");
         });
 
@@ -100,9 +98,8 @@ public class Main {
 
         get("/getCartContentFromDB", (Request req, Response res) -> {
             ArrayList<LineItem> items=new ArrayList<>();
-            CartController cc = new CartController();
             String userID = req.session().attribute("currentUser");
-            items = cc.getCartContentDB(userID);
+            items = cartController.getCartContentDB(userID);
             ObjectMapper mapper = new ObjectMapper();
             ArrayList<String> result = new ArrayList<>();
             for (int i = 0; i < items.size(); i++) {
@@ -148,9 +145,10 @@ public class Main {
 
         get("/updateShoppingCart", (req, res) -> {
             String productName = req.queryParams("productName");
-            String productQuantity = req.queryParams("quantity");
-            Integer quantity= Integer.parseInt(productQuantity);
-            cart.updateCart(productName,quantity);
+            Integer quantity = Integer.parseInt(req.queryParams("quantity"));
+            String userID = req.session().attribute("currentUser");
+            cartController.updateQuantityDB(userID, productName, quantity);
+
             return "success";
         });
 
