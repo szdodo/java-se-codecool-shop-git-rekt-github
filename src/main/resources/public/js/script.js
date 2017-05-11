@@ -50,14 +50,13 @@ $(document).ready(function () {
                 if(response == "user is not logged in") {
                     window.location.replace("/login");
                 } else {
-                    $('.cart-content').html(response);
+                    $('.cart-content').html(checkCartSize());
                 }
                 
             }
         });
         setTimeout(function () { 
             btn.removeClass('clicked');
-            checkCartSize();
         }, 500);
     });
 
