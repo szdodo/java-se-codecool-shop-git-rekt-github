@@ -1,6 +1,5 @@
 package com.codecool.shop.model;
 
-
 import java.lang.reflect.Field;
 
 public class BaseModel {
@@ -18,6 +17,11 @@ public class BaseModel {
         this.description = description;
     }
 
+    public BaseModel(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
 
     public int getId() {
         return id;
@@ -46,6 +50,7 @@ public class BaseModel {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
+
         for (Field field : this.getClass().getDeclaredFields()) {
             field.setAccessible(true);
             Object value = null;
@@ -54,11 +59,8 @@ public class BaseModel {
                 if (value != null) {
                     sb.append(field.getName() + ":" + value + ",");
                 }
-            } catch (IllegalAccessException e) {
-
-            }
+            } catch (IllegalAccessException e) {}
         }
         return sb.toString();
     }
-
 }

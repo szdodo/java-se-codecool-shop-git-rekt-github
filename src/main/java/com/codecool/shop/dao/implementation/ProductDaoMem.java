@@ -1,6 +1,5 @@
 package com.codecool.shop.dao.implementation;
 
-
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -15,8 +14,6 @@ public class ProductDaoMem implements ProductDao {
     private List<Product> DATA = new ArrayList<>();
     private static ProductDaoMem instance = null;
 
-    /* A private Constructor prevents any other class from instantiating.
-     */
     private ProductDaoMem() {
     }
 
