@@ -14,8 +14,8 @@ import java.util.HashMap;
 public class CartController extends DBConnection {
 
     public void checkCartDB(String userId, Integer productID) {
-        String query = "SELECT product_id FROM cart WHERE user_id='" + userId + "' AND product_id = "+ productID +";";
-        try(Connection connection = getConnection()) {
+        String query = "SELECT product_id FROM cart WHERE user_id='" + userId + "' AND product_id = " + productID + ";";
+        try (Connection connection = getConnection()) {
 
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -24,8 +24,7 @@ public class CartController extends DBConnection {
                 Integer prodID = resultSet.getInt("product_id");
                 System.out.println(prodID);
                 updateCartDB(userId, productID);
-            }
-            else {
+            } else {
                 addToCartDB(userId, productID);
             }
 
@@ -37,12 +36,30 @@ public class CartController extends DBConnection {
         }
     }
 
+    public String getTotalPrice(String userID) {
+        String query = "SELECT product.defaultprice * cart.quantity AS total FROM cart JOIN product ON cart.product_id = product.id WHERE cart.user_id = '" + userID + "';";
+        Double price = (double) 0;
+        try (Connection connection = getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                price += resultSet.getDouble("total");
+            }
+        } catch (
+                SQLException e)
+
+        {
+            e.printStackTrace();
+        }
+        return price.toString();
+    }
+
     public ArrayList<LineItem> getCartContentDB(String userID) {
         ArrayList<LineItem> products = new ArrayList<>();
 
-        String query = "SELECT product.name, product.defaultprice, cart.quantity, product.defaultprice * cart.quantity AS total FROM cart JOIN product ON cart.product_id = product.id WHERE cart.user_id = '"+ userID +"';";
+        String query = "SELECT product.name, product.defaultprice, cart.quantity, product.defaultprice * cart.quantity AS total FROM cart JOIN product ON cart.product_id = product.id WHERE cart.user_id = '" + userID + "';";
 
-        try(Connection connection = getConnection();) {
+        try (Connection connection = getConnection();) {
 
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -68,23 +85,23 @@ public class CartController extends DBConnection {
     }
 
     public void updateCartDB(String userId, Integer productID) {
-        String query = "UPDATE cart SET quantity = quantity + 1 WHERE user_id='" + userId + "' AND product_id ='"+ productID +"';";
+        String query = "UPDATE cart SET quantity = quantity + 1 WHERE user_id='" + userId + "' AND product_id ='" + productID + "';";
         executeQuery(query);
         System.out.println("product: " + productID + " updated for user with user_id: " + userId);
 
     }
 
     public void addToCartDB(String userId, Integer prodID) {
-        String query = "INSERT INTO cart(user_id, quantity, product_id) VALUES('" + userId + "',1,'"+ prodID +"');";
+        String query = "INSERT INTO cart(user_id, quantity, product_id) VALUES('" + userId + "',1,'" + prodID + "');";
         executeQuery(query);
         System.out.println("product: " + prodID + " added for user with user_id: " + userId);
 
     }
 
     public Integer getCartSize(String userID) {
-        String query = "SELECT SUM(quantity) AS total_quantity FROM cart WHERE user_id = '"+ userID +"';";
+        String query = "SELECT SUM(quantity) AS total_quantity FROM cart WHERE user_id = '" + userID + "';";
 
-        try(Connection connection = getConnection();) {
+        try (Connection connection = getConnection();) {
 
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);

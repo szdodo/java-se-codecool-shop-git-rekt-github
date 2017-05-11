@@ -76,9 +76,12 @@ public class Main {
         });
 
         get("/getTotalPrice", (req, res) -> {
-            String cartTotalPrice = cart.getTotalPrice();
+            CartController cc = new CartController();
+            String userID = req.session().attribute("currentUser");
+            String cartTotalPrice = cc.getTotalPrice(userID);
             return ("Total: " + cartTotalPrice + " $");
         });
+
 
         get("/getCartContent", (Request req, Response res) -> {
             HashMap<String, ArrayList> products = new HashMap<>();
