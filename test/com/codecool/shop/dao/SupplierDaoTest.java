@@ -10,19 +10,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SupplierDaoTest {
+abstract class SupplierDaoTest {
 
 
-    private static SupplierDao dao;
+    static SupplierDao dao;
 
     @BeforeAll
-    public static void setup(){
-        dao= SupplierDaoMem.getInstance();
-        Supplier amazon = new Supplier("Amazon", "Digital content and services");
-        dao.add(amazon);
-        Supplier lenovo = new Supplier("Lenovo", "Computers and laptops");
-        dao.add(lenovo);
-    }
+    public static void setup(){}
+
 
     @Test
     public void testIsSupplierDaoSingleton(){

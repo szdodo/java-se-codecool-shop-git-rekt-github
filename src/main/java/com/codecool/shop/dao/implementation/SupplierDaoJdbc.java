@@ -25,7 +25,7 @@ public class SupplierDaoJdbc extends DBConnection implements SupplierDao {
 
     @Override
     public ArrayList<Supplier> getAll() {
-
+        suppliers.clear();
         String query = "SELECT * FROM supplier;";
 
         try (Connection connection = getConnection();
