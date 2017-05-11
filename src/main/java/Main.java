@@ -182,10 +182,9 @@ public class Main {
 
         get("/checkUser", (req, res) -> {
             String user = req.session().attribute("currentUser");
-            if(user == null) {
+            if (user == null) {
                 return "null";
-            }
-            else {
+            } else {
                 return user;
             }
         });

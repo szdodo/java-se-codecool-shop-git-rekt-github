@@ -23,7 +23,6 @@ abstract class ProductDaoTest {
     @Test
     abstract public void testIsProductDaoSingleton();
 
-
     @Test
     abstract public void testIsFindWorking();
 
@@ -37,6 +36,4 @@ abstract class ProductDaoTest {
 
     @Test
     abstract public void testIsGetAllWorking();
-
-
 }

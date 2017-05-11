@@ -1,6 +1,5 @@
 package com.codecool.shop.dao;
 
-
 import com.codecool.shop.dao.implementation.*;
 
 import com.codecool.shop.dbconnection.DBPassword;
@@ -15,7 +14,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 
 public class ProductCategoryJdbcTestSet extends ProductCategoryDaoTest {
 
@@ -33,11 +31,9 @@ public class ProductCategoryJdbcTestSet extends ProductCategoryDaoTest {
             ScriptRunner runner = new ScriptRunner(con, false, true);
             runner.runScript(new BufferedReader(new FileReader("src/main/resources/public/sql/init_db.sql")));
             runner.runScript(new BufferedReader(new FileReader("src/main/resources/public/sql/create_data.sql")));
-        }
-        catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         dao = ProductCategoryDaoJdbc.getInstance();
@@ -46,15 +42,14 @@ public class ProductCategoryJdbcTestSet extends ProductCategoryDaoTest {
 
     @Override
     @Test
-    public void testIsProductCategoryDaoSingleton(){
-        ProductCategoryDao fakeDao=ProductCategoryDaoJdbc.getInstance();
-        assertEquals(dao.hashCode(),fakeDao.hashCode());
+    public void testIsProductCategoryDaoSingleton() {
+        ProductCategoryDao fakeDao = ProductCategoryDaoJdbc.getInstance();
+        assertEquals(dao.hashCode(), fakeDao.hashCode());
     }
 
     @Override
     @Test
-    public void testIsGetAllWorking(){
-        assertEquals(9,dao.getAll().size());
+    public void testIsGetAllWorking() {
+        assertEquals(9, dao.getAll().size());
     }
-
 }
