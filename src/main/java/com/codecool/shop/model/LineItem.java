@@ -7,21 +7,22 @@ public class LineItem
 
     public String name;
     public float defaultPrice;
-    public Currency defaultCurrency;
+    public String defaultCurrency;
     public Integer quantity;
 
 
     public LineItem(Product product){
         this.name=product.name;
         this.defaultPrice=product.getDefaultPrice();
-        this.defaultCurrency=product.getDefaultCurrency();
+        this.defaultCurrency=product.getDefaultCurrency().toString();
         this.quantity=1;
     }
 
-    public LineItem(String name, float defaultPrice, Currency defaultCurrency){
+    public LineItem(String name, float defaultPrice, String defaultCurrency, Integer quantity){
         this.name=name;
         this.defaultCurrency=defaultCurrency;
         this.defaultPrice=defaultPrice;
+        this.quantity = quantity;
     }
 
     public String toString() {

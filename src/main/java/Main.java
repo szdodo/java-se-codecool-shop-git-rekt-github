@@ -3,6 +3,7 @@ import static spark.debug.DebugScreen.enableDebugScreen;
 
 import com.codecool.shop.controller.CartController;
 import com.codecool.shop.controller.CustomerController;
+import com.codecool.shop.controller.OrderController;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
@@ -49,14 +50,29 @@ public class Main {
             Integer cartSize = cart.getCartContent().size();
             String size = cart.getCartSize();
             String userId = req.session().attribute("currentUser");
-            cartController.checkCartDB(userId, productId);
-            return (size + " items");
+            if(userId == null) {
+                return "user is not logged in";
+            }
+            else {
+                cartController.checkCartDB(userId, productId);
+                return (size + " items");
+            }
+
+
+        });
+
+        get("/addCartToOrder", (req, res) -> {
+            OrderController orderController = new OrderController();
+            String userId = req.session().attribute("currentUser");
+            orderController.addCartToOrder(userId);
+            return "success";
 
         });
 
         get("/getCartSize", (req, res) -> {
-            String cartSize = cart.getCartSize();
-            return (cartSize + " items");
+            CartController ccc = new CartController();
+            String userID = req.session().attribute("currentUser");
+            return (ccc.getCartSize(userID));
         });
 
         get("/getTotalPrice", (req, res) -> {
@@ -69,6 +85,21 @@ public class Main {
             products = cart.getCartContent();
             ArrayList<LineItem> items=new ArrayList<>();
             items = cart.getCartContent().get("products");
+            ObjectMapper mapper = new ObjectMapper();
+            ArrayList<String> result = new ArrayList<>();
+            for (int i = 0; i < items.size(); i++) {
+                LineItem prod = items.get(i);
+                String jsonAsd = mapper.writeValueAsString(prod);
+                result.add(jsonAsd);
+            }
+            return result;
+        });
+
+        get("/getCartContentFromDB", (Request req, Response res) -> {
+            ArrayList<LineItem> items=new ArrayList<>();
+            CartController cc = new CartController();
+            String userID = req.session().attribute("currentUser");
+            items = cc.getCartContentDB(userID);
             ObjectMapper mapper = new ObjectMapper();
             ArrayList<String> result = new ArrayList<>();
             for (int i = 0; i < items.size(); i++) {

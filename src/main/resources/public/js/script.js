@@ -27,6 +27,16 @@ $(document).ready(function () {
 
     });
 
+    $(document).on('click', '#my_account', function(){
+        $.ajax({
+            url:'/addCartToOrder',
+            type: "get",
+            success: function(response){
+                console.log(response)
+            }
+        });
+    });
+
 
     $(document).on('click', '.button', function(){
         var btn = $(this)
@@ -37,11 +47,17 @@ $(document).ready(function () {
             url:'/addToCart?productId='+productId,
             type: "get",
             success: function(response){
-                $('.cart-content').html(response);
+                if(response == "user is not logged in") {
+                    window.location.replace("/login");
+                } else {
+                    $('.cart-content').html(response);
+                }
+                
             }
         });
         setTimeout(function () { 
             btn.removeClass('clicked');
+            checkCartSize();
         }, 500);
     });
 
@@ -91,10 +107,11 @@ $(document).ready(function () {
             $('body').css('overflow', 'hidden');
             $('')
             $.ajax({
-                url:'/getCartContent',
+                url:'/getCartContentFromDB',
                 type: "get",
                 success: function(data){
                     var products = JSON.parse(data);
+                    console.log(products);
                     for(var i = 0; i < products.length; i++){
                         var name = products[i].name;
                         var quantity = products[i].quantity;
@@ -135,7 +152,12 @@ $(document).ready(function () {
             url:'/getCartSize',
             type: "get",
             success: function(response){
-                $('.cart-content').html(response);
+                if(response == null) {
+                    $('.cart-content').html(0 + " items");
+                }
+                else {
+                    $('.cart-content').html(response + " items");
+                }
             }
         });
     }
@@ -149,4 +171,6 @@ $(document).ready(function () {
     });
 
 })
+
+
 
