@@ -1,4 +1,4 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.dbconnection;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 class DBPassword {
 
     static ArrayList<String> readFile() {
-        String filename = "././././././db_config.txt";
+        String filename = "db_config.txt";
         ArrayList<String> records = new ArrayList<>();
 
         try {
