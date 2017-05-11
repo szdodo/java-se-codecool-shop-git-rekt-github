@@ -105,6 +105,11 @@ public class Main {
             return renderTemplate("product/payment", dummyHashMap);
         });
 
+        get("/pay", (req, res) -> {
+            HashMap<String, ArrayList> dummyHashMap = new HashMap<>();
+            return renderTemplate("product/pay", dummyHashMap);
+        });
+
         post("/payment", (req, res) -> {
             String name = req.queryParams("name");
             String email = req.queryParams("email");

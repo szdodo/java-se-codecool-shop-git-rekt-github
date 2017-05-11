@@ -34,17 +34,6 @@ $(document).ready(function () {
        window.location.replace("/login");
     });
 
-    // $(document).on('click', '#my_account', function () {
-    //     $.ajax({
-    //         url: '/addCartToOrder',
-    //         type: "get",
-    //         success: function (response) {
-    //             console.log(response)
-    //         }
-    //     });
-    // });
-
-
     $(document).on('click', '.button', function () {
         var btn = $(this)
         btn.addClass('clicked').delay(500)
@@ -105,7 +94,7 @@ $(document).ready(function () {
     });
 
     $('.checkout-button').on('click', function (e) {
-        window.location.replace("/checkout");
+        window.location.replace("/pay");
     });
 
     $('#sign-out').on('click', function (e) {
@@ -122,7 +111,7 @@ $(document).ready(function () {
 
     $(document).on('click', '.cart-container', function () {
         if ($('.cart-content').text() == "0 items") {
-            alert('Your basket is empty!');
+            alert('Your cart is empty!');
         }
         else {
             $('.cart-item-container').empty();
