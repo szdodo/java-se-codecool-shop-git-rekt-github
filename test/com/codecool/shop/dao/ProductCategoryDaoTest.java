@@ -1,13 +1,12 @@
 package com.codecool.shop.dao;
 
-import com.codecool.shop.dao.implementation.DBConnection;
 import com.codecool.shop.model.ProductCategory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 
 import static org.junit.jupiter.api.Assertions.*;
-abstract class ProductCategoryDaoTest extends DBConnection {
+abstract class ProductCategoryDaoTest {
 
 
     static ProductCategoryDao dao=null;

@@ -1,7 +1,7 @@
 package com.codecool.shop.dao;
 
 
-import com.codecool.shop.dao.implementation.DBPassword;
+import com.codecool.shop.dbconnection.DBPassword;
 import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.model.Product;
 import org.junit.jupiter.api.BeforeAll;
