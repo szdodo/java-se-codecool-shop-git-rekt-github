@@ -83,7 +83,6 @@ public class Main {
             ArrayList<String> result = new ArrayList<>();
             for (int i = 0; i < items.size(); i++) {
                 LineItem prod = items.get(i);
-                System.out.println(prod);
                 String productJson = mapper.writeValueAsString(prod);
                 result.add(productJson);
             }

@@ -3,9 +3,9 @@ package com.codecool.shop.model;
 public class LineItem {
 
     public String name;
-    float defaultPrice;
-    private String defaultCurrency;
-    Integer quantity;
+    public float defaultPrice;
+    public String defaultCurrency;
+    public Integer quantity;
 
     LineItem(Product product) {
         this.name = product.name;
