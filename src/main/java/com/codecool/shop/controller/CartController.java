@@ -8,8 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Currency;
-import java.util.HashMap;
 
 public class CartController extends DBConnection {
 
@@ -24,14 +22,12 @@ public class CartController extends DBConnection {
                 Integer prodID = resultSet.getInt("product_id");
                 System.out.println(prodID);
                 updateCartDB(userId, productID);
-            } else {
+            }
+            else {
                 addToCartDB(userId, productID);
             }
 
-        } catch (
-                SQLException e)
-
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -45,9 +41,7 @@ public class CartController extends DBConnection {
             while (resultSet.next()) {
                 price += resultSet.getDouble("total");
             }
-        } catch (
-                SQLException e)
-
+        } catch (SQLException e)
         {
             e.printStackTrace();
         }
@@ -74,13 +68,10 @@ public class CartController extends DBConnection {
 
             }
 
-        } catch (
-                SQLException e)
-
+        } catch (SQLException e)
         {
             e.printStackTrace();
         }
-
         return products;
     }
 
@@ -98,6 +89,19 @@ public class CartController extends DBConnection {
 
     }
 
+    public void updateQuantityDB(String userId, String prodName, Integer quantity) {
+        Integer prodId = getProductId(prodName);
+        String updateQuery = "UPDATE cart SET quantity = "+ quantity +" WHERE user_id = '" + userId + "' AND product_id = " + prodId + ";";
+        String deleteQuery = "DELETE FROM cart WHERE user_id = '"+ userId +"' AND product_id = '" + prodId + "';";
+
+        if(quantity == 0) {
+            executeQuery(deleteQuery);
+        } else {
+            executeQuery(updateQuery);
+        }
+
+    }
+
     public Integer getCartSize(String userID) {
         String query = "SELECT SUM(quantity) AS total_quantity FROM cart WHERE user_id = '" + userID + "';";
 
@@ -112,15 +116,32 @@ public class CartController extends DBConnection {
 
             }
 
-        } catch (
-                SQLException e)
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
+    public Integer getProductId(String productName) {
+        String query = "SELECT id FROM product WHERE name = '"+ productName +"';";
+
+        try (Connection connection = getConnection();) {
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            if (resultSet.next()) {
+                Integer productId = resultSet.getInt("id");
+                return productId;
+            }
+
+        } catch (SQLException e)
         {
             e.printStackTrace();
         }
 
-        return 0;
-
+        return 1;
     }
 
 }
