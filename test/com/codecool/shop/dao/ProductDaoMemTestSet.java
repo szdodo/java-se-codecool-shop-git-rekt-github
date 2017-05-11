@@ -44,7 +44,7 @@ public class ProductDaoMemTestSet extends ProductDaoTest{
     @Override
     @Test
     public void testIsGetAllWorking(){
-        assertEquals(2,dao.getAll().size());
+        assertEquals(1,dao.getAll().size());
     }
 
 }
