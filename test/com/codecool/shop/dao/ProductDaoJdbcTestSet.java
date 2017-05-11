@@ -36,11 +36,9 @@ public class ProductDaoJdbcTestSet extends ProductDaoTest {
             ScriptRunner runner = new ScriptRunner(con, false, true);
             runner.runScript(new BufferedReader(new FileReader("src/main/resources/public/sql/init_db.sql")));
             runner.runScript(new BufferedReader(new FileReader("src/main/resources/public/sql/create_data.sql")));
-        }
-        catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         dao = ProductDaoJdbc.getInstance();
@@ -49,27 +47,23 @@ public class ProductDaoJdbcTestSet extends ProductDaoTest {
 
     @Override
     @Test
-    public void testIsProductDaoSingleton(){
-        ProductDao fakeDao= ProductDaoJdbc.getInstance();
-        assertEquals(dao.hashCode(),fakeDao.hashCode());
+    public void testIsProductDaoSingleton() {
+        ProductDao fakeDao = ProductDaoJdbc.getInstance();
+        assertEquals(dao.hashCode(), fakeDao.hashCode());
     }
 
     @Override
     @Test
-    public void testIsFindWorking(){
-        Product found=dao.find(1);
-        assertEquals("Amazon Fire",found.getName());
+    public void testIsFindWorking() {
+        Product found = dao.find(1);
+        assertEquals("Amazon Fire", found.getName());
     }
 
     @Override
     @Test
-    public void testIsGetAllWorking(){
-        assertEquals(17,dao.getAll().size());
+    public void testIsGetAllWorking() {
+        assertEquals(17, dao.getAll().size());
     }
-
-
-
-
 
 
 }
