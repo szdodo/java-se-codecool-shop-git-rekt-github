@@ -9,8 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductCategoryDaoJdbc extends DBConnection implements ProductCategoryDao{
-
+public class ProductCategoryDaoJdbc extends DBConnection implements ProductCategoryDao {
     private static ArrayList<ProductCategory> categories = new ArrayList<>();
     private static ProductCategoryDaoJdbc instance = null;
 
@@ -30,8 +29,9 @@ public class ProductCategoryDaoJdbc extends DBConnection implements ProductCateg
 
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)){
-            while (resultSet.next()){
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
                 ProductCategory category = new ProductCategory(Integer.parseInt(resultSet.getString("id")), resultSet.getString("name"), resultSet.getString("department"), "asdasd");
                 categories.add(category);
             }
@@ -41,9 +41,10 @@ public class ProductCategoryDaoJdbc extends DBConnection implements ProductCateg
         return categories;
     }
 
-    public ProductCategory getCategory(int id) {
-        String categoryId= Integer.toString(id);
+    ProductCategory getCategory(int id) {
+        String categoryId = Integer.toString(id);
         ProductCategory result = null;
+
         for (ProductCategory category : categories) {
             if (category.getId() == Integer.parseInt(categoryId)) {
                 result = category;
@@ -53,13 +54,14 @@ public class ProductCategoryDaoJdbc extends DBConnection implements ProductCateg
     }
 
     @Override
-    public ProductCategory find(int id){
-        String query="SELECT * FROM category WHERE id="+id+";";
-        ProductCategory foundCategory=null;
+    public ProductCategory find(int id) {
+        String query = "SELECT * FROM category WHERE id=" + id + ";";
+        ProductCategory foundCategory = null;
+
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)){
-            while (resultSet.next()){
+             ResultSet resultSet = statement.executeQuery(query)) {
+            while (resultSet.next()) {
                 foundCategory = new ProductCategory(Integer.parseInt(resultSet.getString("id")), resultSet.getString("name"), resultSet.getString("department"), "asdasd");
             }
         } catch (SQLException e) {
@@ -69,16 +71,15 @@ public class ProductCategoryDaoJdbc extends DBConnection implements ProductCateg
     }
 
     @Override
-    public void add(ProductCategory category){
-        int newId=categories.size()+1;
-        String query = "INSERT INTO category (id, name, department) VALUES (" +newId+",'" + category.getName() +"','" + category.getDepartment() +"');";
+    public void add(ProductCategory category) {
+        int newId = categories.size() + 1;
+        String query = "INSERT INTO category (id, name, department) VALUES (" + newId + ",'" + category.getName() + "','" + category.getDepartment() + "');";
         executeQuery(query);
-
     }
 
     @Override
-    public void remove(int id){
-        String query="DELETE FROM category WHERE id="+ id +";";
+    public void remove(int id) {
+        String query = "DELETE FROM category WHERE id=" + id + ";";
         executeQuery(query);
     }
 
