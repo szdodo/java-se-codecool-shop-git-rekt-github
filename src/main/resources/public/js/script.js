@@ -1,6 +1,10 @@
 $(document).ready(function () {
 
     $('.menu').hide();
+    $('#crcard-dropdown').hide();
+    $('.paypal-wrapper').hide();
+    $('.ccard-wrapper').hide();
+    $('.button').hide();
 
     $(document).on('click', '.filter-cat-button', function() {
         $('.menu').hide(300);
@@ -180,6 +184,26 @@ $(document).ready(function () {
         };
     });
 
+    $(document).on('click', '#show-crcard-option', function () {
+        var menuBox = $('#crcard-dropdown');
+        menuBox.show(300);
+    });
+
+    $(document).on('click', '#hide-crcard-option', function () {
+        var menuBox = $('#crcard-dropdown');
+        menuBox.hide(300);
+    });
+
+    $('#ppal').click(function () {
+        $('.ccard-wrapper').hide();
+        $('.button').show();
+        $('.paypal-wrapper').show();
+    })
+    $('#ccard').click(function () {
+        $('.paypal-wrapper').hide();
+        $('.button').show();
+        $('.ccard-wrapper').show();
+    })
 })
 
 

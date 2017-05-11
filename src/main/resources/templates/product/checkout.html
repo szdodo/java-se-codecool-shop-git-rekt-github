@@ -26,6 +26,7 @@
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/css/checkout.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="/js/script.js"></script>
 </head>
@@ -68,11 +69,11 @@
                     <label for="shipping">Shipping address:</label>
                 <input type="text" size="71" id="shipping" required="true"/>
                 <input class="dropdown" type="submit" id="checkout" value="Proceed to payment"/>
-        </form>
-    </div>
-    <div class="shopping-cart">
-        <div class="dropdown" onclick="window.location = '/'">Back to the main page</div>
-    </div>
+    </form>
+</div>
+<div class="shopping-cart">
+    <div class="dropdown" onclick="window.location = '/'">Back to the main page</div>
+</div>
 
 </div>
 <div th:replace="footer :: copy"></div>
