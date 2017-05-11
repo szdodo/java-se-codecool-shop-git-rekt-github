@@ -10,6 +10,5 @@ public interface SupplierDao {
 
     Supplier find(int id);
 
-
     List<Supplier> getAll();
 }

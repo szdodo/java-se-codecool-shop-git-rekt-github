@@ -1,6 +1,5 @@
 package com.codecool.shop.dao;
 
-
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -46,5 +45,4 @@ public class ProductDaoMemTestSet extends ProductDaoTest{
     public void testIsGetAllWorking(){
         assertEquals(1,dao.getAll().size());
     }
-
 }

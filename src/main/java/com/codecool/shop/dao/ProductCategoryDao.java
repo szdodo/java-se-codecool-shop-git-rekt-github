@@ -10,6 +10,5 @@ public interface ProductCategoryDao {
 
     ProductCategory find(int id);
 
-
     List<ProductCategory> getAll();
 }

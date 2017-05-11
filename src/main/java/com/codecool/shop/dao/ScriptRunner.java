@@ -6,16 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Tool to run database scripts
- */
 public class ScriptRunner {
 
     private static final String DEFAULT_DELIMITER = ";";
-    /**
-     * regex to detect delimiter.
-     * ignores spaces, allows delimiter in comment, allows an equals-sign
-     */
+
     public static final Pattern delimP = Pattern.compile("^\\s*(--)?\\s*delimiter\\s*=?\\s*([^\\s]+)+\\s*.*$", Pattern.CASE_INSENSITIVE);
 
     private final Connection connection;
@@ -31,9 +25,6 @@ public class ScriptRunner {
     private String delimiter = DEFAULT_DELIMITER;
     private boolean fullLineDelimiter = false;
 
-    /**
-     * Default constructor
-     */
     public ScriptRunner(Connection connection, boolean autoCommit,
                         boolean stopOnError) {
         this.connection = connection;
@@ -47,7 +38,7 @@ public class ScriptRunner {
             } else {
                 logWriter = new PrintWriter(new FileWriter(logFile, false));
             }
-        } catch(IOException e){
+        } catch (IOException e) {
             System.err.println("Unable to access or create the db_create log");
         }
         try {
@@ -56,7 +47,7 @@ public class ScriptRunner {
             } else {
                 errorLogWriter = new PrintWriter(new FileWriter(errorLogFile, false));
             }
-        } catch(IOException e){
+        } catch (IOException e) {
             System.err.println("Unable to access or create the  db_create error log");
         }
         String timeStamp = new SimpleDateFormat("dd/mm/yyyy HH:mm:ss").format(new java.util.Date());
@@ -69,29 +60,14 @@ public class ScriptRunner {
         this.fullLineDelimiter = fullLineDelimiter;
     }
 
-    /**
-     * Setter for logWriter property
-     *
-     * @param logWriter - the new value of the logWriter property
-     */
     public void setLogWriter(PrintWriter logWriter) {
         this.logWriter = logWriter;
     }
 
-    /**
-     * Setter for errorLogWriter property
-     *
-     * @param errorLogWriter - the new value of the errorLogWriter property
-     */
     public void setErrorLogWriter(PrintWriter errorLogWriter) {
         this.errorLogWriter = errorLogWriter;
     }
 
-    /**
-     * Runs an SQL script (read in using the Reader parameter)
-     *
-     * @param reader - the source of the script
-     */
     public void runScript(Reader reader) throws IOException, SQLException {
         try {
             boolean originalAutoCommit = connection.getAutoCommit();
@@ -110,15 +86,6 @@ public class ScriptRunner {
         }
     }
 
-    /**
-     * Runs an SQL script (read in using the Reader parameter) using the
-     * connection passed in
-     *
-     * @param conn - the connection to use for the script
-     * @param reader - the source of the script
-     * @throws SQLException if any SQL errors occur
-     * @throws IOException if there is an error reading from the Reader
-     */
     private void runScript(Connection conn, Reader reader) throws IOException,
             SQLException {
         StringBuffer command = null;
@@ -133,14 +100,12 @@ public class ScriptRunner {
                 final Matcher delimMatch = delimP.matcher(trimmedLine);
                 if (trimmedLine.length() < 1
                         || trimmedLine.startsWith("//")) {
-                    // Do nothing
                 } else if (delimMatch.matches()) {
                     setDelimiter(delimMatch.group(2), false);
                 } else if (trimmedLine.startsWith("--")) {
                     println(trimmedLine);
                 } else if (trimmedLine.length() < 1
                         || trimmedLine.startsWith("--")) {
-                    // Do nothing
                 } else if (!fullLineDelimiter
                         && trimmedLine.endsWith(getDelimiter())
                         || fullLineDelimiter
@@ -161,8 +126,7 @@ public class ScriptRunner {
             if (!autoCommit) {
                 conn.commit();
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new IOException(String.format("Error executing '%s': %s", command, e.getMessage()), e);
         } finally {
             conn.rollback();
@@ -188,11 +152,9 @@ public class ScriptRunner {
                 throw new SQLException(errText, e);
             }
         }
-
         if (autoCommit && !conn.getAutoCommit()) {
             conn.commit();
         }
-
         ResultSet rs = statement.getResultSet();
         if (hasResults && rs != null) {
             ResultSetMetaData md = rs.getMetaData();
@@ -213,9 +175,7 @@ public class ScriptRunner {
 
         try {
             statement.close();
-        } catch (Exception e) {
-            // Ignore to workaround a bug in Jakarta DBCP
-        }
+        } catch (Exception e) {}
     }
 
     private String getDelimiter() {

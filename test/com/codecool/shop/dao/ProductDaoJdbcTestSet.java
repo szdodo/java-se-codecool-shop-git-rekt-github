@@ -1,6 +1,5 @@
 package com.codecool.shop.dao;
 
-
 import com.codecool.shop.dbconnection.DBPassword;
 import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.model.Product;
@@ -18,13 +17,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 public class ProductDaoJdbcTestSet extends ProductDaoTest {
 
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
     private static final String DB_USER = DBPassword.readFile().get(0);
     private static final String DB_PASSWORD = DBPassword.readFile().get(1);
-
 
     @BeforeAll
     public static void setup() {
@@ -64,6 +61,4 @@ public class ProductDaoJdbcTestSet extends ProductDaoTest {
     public void testIsGetAllWorking() {
         assertEquals(17, dao.getAll().size());
     }
-
-
 }
