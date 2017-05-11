@@ -2,7 +2,7 @@ package com.codecool.shop.dao.implementation;
 
 
 import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.model.Product;
+import com.codecool.shop.dbconnection.DBConnection;
 import com.codecool.shop.model.ProductCategory;
 
 import java.sql.*;

@@ -1,6 +1,6 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.implementation.DBConnection;
+import com.codecool.shop.dbconnection.DBConnection;
 import com.codecool.shop.model.LineItem;
 
 import java.sql.Connection;
