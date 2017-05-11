@@ -63,11 +63,17 @@ $(document).ready(function () {
     $(document).on('focusout', '.quantity-input', function(){
         var name = $(this).data('name');
         var quantity = $(this).val();
+        if( quantity == "0" ){
+            $(this).parent().parent().hide(300);
+            getTotalPrice();
+        }
         $.ajax({
             url:'/updateShoppingCart?productName='+name+'&quantity='+quantity,
             type: "get",
             success: function(response){
                 console.log(response);
+                checkCartSize();
+                getTotalPrice();
             }
         });
     });
@@ -79,6 +85,7 @@ $(document).ready(function () {
             type: "get",
             success: function(response){
                 console.log(response);
+                checkCartSize();
             }
         });
         $(this).parent().fadeOut(300);
@@ -120,13 +127,7 @@ $(document).ready(function () {
                     }
                 }
             });
-            $.ajax({
-                url:'/getTotalPrice',
-                type: "get",
-                success: function(data){
-                    $('.cart-total').html(data);
-                }
-            });
+            getTotalPrice();
             $('.cart-modal').toggleClass('active');
         }
     })
@@ -159,6 +160,16 @@ $(document).ready(function () {
                 }
             }
         });
+    }
+
+    var getTotalPrice = function(){
+        $.ajax({
+                url:'/getTotalPrice',
+                type: "get",
+                success: function(data){
+                    $('.cart-total').html(data);
+                }
+            });
     }
 
     checkCartSize();
