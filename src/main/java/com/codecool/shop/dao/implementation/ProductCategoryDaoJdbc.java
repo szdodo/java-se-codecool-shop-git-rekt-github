@@ -1,12 +1,15 @@
 package com.codecool.shop.dao.implementation;
 
 
+import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
-public class ProductCategoryDaoJdbc extends DBConnection{
+public class ProductCategoryDaoJdbc extends DBConnection implements ProductCategoryDao{
 
     private static ArrayList<ProductCategory> categories = new ArrayList<>();
     private static ProductCategoryDaoJdbc instance = null;
@@ -21,9 +24,8 @@ public class ProductCategoryDaoJdbc extends DBConnection{
         return instance;
     }
 
-    // @Override
-    public ArrayList<ProductCategory> generateProductCategories() {
-
+    @Override
+    public List<ProductCategory> getAll() {
         String query = "SELECT * FROM category;";
 
         try (Connection connection = getConnection();
@@ -33,21 +35,51 @@ public class ProductCategoryDaoJdbc extends DBConnection{
                 ProductCategory category = new ProductCategory(Integer.parseInt(resultSet.getString("id")), resultSet.getString("name"), resultSet.getString("department"), "asdasd");
                 categories.add(category);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return categories;
     }
 
-    public static ProductCategory getCategory(String id) {
+    public ProductCategory getCategory(int id) {
+        String categoryId= Integer.toString(id);
         ProductCategory result = null;
         for (ProductCategory category : categories) {
-            if (category.getId() == Integer.parseInt(id)) {
+            if (category.getId() == Integer.parseInt(categoryId)) {
                 result = category;
             }
         }
         return result;
     }
+
+    @Override
+    public ProductCategory find(int id){
+        String query="SELECT * FROM category WHERE id="+id+";";
+        ProductCategory foundCategory=null;
+        try (Connection connection = getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)){
+            while (resultSet.next()){
+                foundCategory = new ProductCategory(Integer.parseInt(resultSet.getString("id")), resultSet.getString("name"), resultSet.getString("department"), "asdasd");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return foundCategory;
+    }
+
+    @Override
+    public void add(ProductCategory category){
+        int newId=categories.size()+1;
+        String query = "INSERT INTO category (id, name, department) VALUES (" +newId+",'" + category.getName() +"','" + category.getDepartment() +"');";
+        executeQuery(query);
+
+    }
+
+    @Override
+    public void remove(int id){
+        String query="DELETE FROM category WHERE id="+ id +";";
+        executeQuery(query);
+    }
+
 }
