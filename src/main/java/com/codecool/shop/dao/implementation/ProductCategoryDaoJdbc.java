@@ -25,6 +25,7 @@ public class ProductCategoryDaoJdbc extends DBConnection implements ProductCateg
 
     @Override
     public List<ProductCategory> getAll() {
+        categories.clear();
         String query = "SELECT * FROM category;";
 
         try (Connection connection = getConnection();
@@ -77,10 +78,6 @@ public class ProductCategoryDaoJdbc extends DBConnection implements ProductCateg
         executeQuery(query);
     }
 
-    @Override
-    public void remove(int id) {
-        String query = "DELETE FROM category WHERE id=" + id + ";";
-        executeQuery(query);
-    }
+
 
 }

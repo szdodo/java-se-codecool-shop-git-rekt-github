@@ -24,7 +24,7 @@ public class SupplierDaoJdbc extends DBConnection implements SupplierDao {
 
     @Override
     public ArrayList<Supplier> getAll() {
-
+        suppliers.clear();
         String query = "SELECT * FROM supplier;";
 
         try (Connection connection = getConnection();
@@ -74,9 +74,5 @@ public class SupplierDaoJdbc extends DBConnection implements SupplierDao {
         return foundSupplier;
     }
 
-    @Override
-    public void remove(int id) {
-        String query = "DELETE FROM supplier WHERE id=" + id + ";";
-        executeQuery(query);
-    }
+
 }

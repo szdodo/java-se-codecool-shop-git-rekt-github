@@ -40,6 +40,10 @@ public class ProductCategory extends BaseModel {
         this.products.add(product);
     }
 
+    public int getId(){
+        return this.id;
+    }
+
     public String toString() {
         return String.format(
                 "id: %1$d," +

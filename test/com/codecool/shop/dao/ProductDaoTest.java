@@ -12,58 +12,31 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProductDaoTest {
+abstract class ProductDaoTest {
 
-    private static ProductDao dao;
+    static ProductDao dao = null;
 
     @BeforeAll
-    public static void setup(){
-        dao= ProductDaoMem.getInstance();
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        Supplier amazon = new Supplier("Amazon", "Digital content and services");
-        Supplier lenovo = new Supplier("Lenovo", "Computers and laptops");
-        dao.add(new Product("Amazon Fire HD 8", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls.", tablet, amazon));
-        dao.add(new Product("Lenovo IdeaPad", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports.", tablet, lenovo));
+    public static void setup() {
     }
 
     @Test
-    public void testIsSupplierDaoSingleton(){
-        List<Product> daoList=new ArrayList<>(dao.getAll());
-        ProductDao fakeDao=ProductDaoMem.getInstance();
-        List<Product> fakeList=new ArrayList<>(fakeDao.getAll());
-        assertEquals(daoList,fakeList);
-    }
+    abstract public void testIsProductDaoSingleton();
+
 
     @Test
-    public void testIsAddAddingElements(){
-        int daoSize=dao.getAll().size();
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        Supplier amazon = new Supplier("Amazon", "Digital content and services");
-        dao.add(new Product("Amazon Fire HD 8", 220, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
-        int newDaoSize=dao.getAll().size();
-        assertEquals(daoSize+1, newDaoSize);
-    }
+    abstract public void testIsFindWorking();
 
     @Test
-    public void testIsFindWorking(){
-        Product found=dao.find(1);
-        assertEquals("Amazon Fire HD 8",found.getName());
-    }
-
-    @Test
-    public void testRemoveRemovingElements(){
-        int daoSize=dao.getAll().size();
+    public void testRemoveRemovingElements() {
+        int daoSize = dao.getAll().size();
         dao.remove(2);
-        int newDaoSize=dao.getAll().size();
-        assertEquals(daoSize-1, newDaoSize);
+        int newDaoSize = dao.getAll().size();
+        assertEquals(daoSize - 1, newDaoSize);
     }
 
     @Test
-    public void testIsGetAllWorking(){
-        assertEquals(2,dao.getAll().size());
-    }
-
-
+    abstract public void testIsGetAllWorking();
 
 
 }
