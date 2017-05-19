@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The ProdcutDaoMem class implements the ProductDao interface.
+ */
 public class ProductDaoMem implements ProductDao {
 
     private List<Product> DATA = new ArrayList<>();

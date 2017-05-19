@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+/**
+ * The DBPassword class reads the db_config.txt file to get tha user and the password
+ * for the database.
+ */
 public class DBPassword {
 
     public static ArrayList<String> readFile() {

@@ -1,5 +1,8 @@
 package com.codecool.shop.model;
 
+/**
+ * The Order class contains the necessary shipping information of a customer.
+ */
 public class Order {
 
     private String name;

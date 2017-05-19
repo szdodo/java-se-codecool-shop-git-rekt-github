@@ -1,5 +1,9 @@
 package com.codecool.shop.model;
 
+/**
+ * The LineItem class represents the product in the shopping cart, it only contains the name,
+ * the price, the currency and the quantity.
+ */
 public class LineItem {
 
     public String name;

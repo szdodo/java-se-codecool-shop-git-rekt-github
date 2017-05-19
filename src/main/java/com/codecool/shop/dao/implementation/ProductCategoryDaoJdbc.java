@@ -9,6 +9,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The ProductCategoryDaoJdbc class extends the DBConnection class to connect to the database.
+ * It implements the ProductCategoryDao interface.
+ */
 public class ProductCategoryDaoJdbc extends DBConnection implements ProductCategoryDao {
     private static ArrayList<ProductCategory> categories = new ArrayList<>();
     private static ProductCategoryDaoJdbc instance = null;

@@ -2,6 +2,9 @@ package com.codecool.shop.model;
 
 import java.lang.reflect.Field;
 
+/**
+ * The BaseModel class contains the basic attributes that the child classes inherit.
+ */
 public class BaseModel {
 
     protected int id;

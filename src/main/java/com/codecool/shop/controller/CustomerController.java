@@ -5,7 +5,11 @@ import com.codecool.shop.dbconnection.DBConnection;
 import java.sql.*;
 import java.util.UUID;
 
-
+/**
+ * The CustomerController class extends the DBConnection class to connect to the database.
+ * The class runs sql queries to get the necessary information about the customer
+ * for the Order class.
+ */
 public class CustomerController extends DBConnection {
 
     public Boolean loginValidation(String login, String pw) {

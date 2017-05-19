@@ -2,6 +2,10 @@ package com.codecool.shop.model;
 
 import java.util.ArrayList;
 
+/**
+ * The ProductCategory class extends the BaseModel class with the category's
+ * department and products.
+ */
 public class ProductCategory extends BaseModel {
 
     private String department;

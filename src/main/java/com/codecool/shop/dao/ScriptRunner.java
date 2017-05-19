@@ -6,6 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The ScriptRunner class is a pre-written class that makes
+ * it possible to run the sql script files.
+ * It creates a create_db.log and create_db_error.log files.
+ */
 public class ScriptRunner {
 
     private static final String DEFAULT_DELIMITER = ";";

@@ -9,6 +9,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * The CartController class extends the DBConnection class to connect to the database.
+ * The class runs sql queries to get the necessary information for the Cart class.
+ */
 public class CartController extends DBConnection {
 
     public void checkCartDB(String userId, Integer productID) {

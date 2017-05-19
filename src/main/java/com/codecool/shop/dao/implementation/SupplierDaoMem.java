@@ -6,6 +6,9 @@ import com.codecool.shop.model.Supplier;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The SupplierDaoMem implements the SupplierDao interface.
+ */
 public class SupplierDaoMem implements SupplierDao {
 
     private List<Supplier> DATA = new ArrayList<>();

@@ -2,6 +2,11 @@ package com.codecool.shop.model;
 
 import java.util.Currency;
 
+
+/**
+ * The Product class extends the BaseModel superclass with the product's price,
+ * currency, category and supplier.
+ */
 public class Product extends BaseModel {
 
     private float defaultPrice;

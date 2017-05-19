@@ -3,6 +3,10 @@ package com.codecool.shop.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The ShoppingCart class represents a customer's cart with the cartContent, totalPrice
+ * and cartSize attributes.
+ */
 public class ShoppingCart {
 
     private HashMap<String, ArrayList> cartContent = new HashMap<>();

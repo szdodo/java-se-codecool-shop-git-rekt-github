@@ -5,6 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * The DBConnection class create the connection with the database and the application.
+ * It uses the DBPassword class readFile method to get the user and the password for
+ * the authentication.
+ */
 public abstract class DBConnection {
 
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";

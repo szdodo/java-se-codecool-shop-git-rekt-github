@@ -6,6 +6,9 @@ import com.codecool.shop.model.ProductCategory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The ProductCategoryDaoMem class implements the ProductCategoryDao interface.
+ */
 public class ProductCategoryDaoMem implements ProductCategoryDao {
 
     private List<ProductCategory> DATA = new ArrayList<>();

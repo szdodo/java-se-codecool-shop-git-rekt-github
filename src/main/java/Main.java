@@ -17,8 +17,18 @@ import spark.ModelAndView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Codecool shop program implements an application that
+ * displays a web shop for the users.
+ * <p>
+ * Running the Main class starts the application.
+ */
 public class Main {
 
+    /**
+     * Fills up tha database and generate routes for the app.
+     * @param args
+     */
     public static void main(String[] args) {
         // default server settings
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
@@ -193,6 +203,9 @@ public class Main {
         enableDebugScreen();
     }
 
+    /**
+     * Populate data for the memory.
+     */
     private static void populateData() {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
@@ -257,6 +270,12 @@ public class Main {
         productDataStore.add(new Product("Ultra-Super Pack", 122, "USD", "A fine selection of quality protein products. Arnold would surely buy this", foodSupplement, cornerVendor));
     }
 
+    /**
+     * Returns a new ThymeleafTemplateEngine for further usage.
+     * @param view String
+     * @param model HashMap
+     * @return a new ThymeleafTemplateEngine based on the given parameters
+     */
     private static String renderTemplate(String view, HashMap model) {
         return new ThymeleafTemplateEngine().render(new ModelAndView(model, view));
     }

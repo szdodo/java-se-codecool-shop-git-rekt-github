@@ -2,6 +2,10 @@ package com.codecool.shop.model;
 
 import java.util.ArrayList;
 
+/**
+ * TheSupplier class extends the BaseModel class with the supplier's description
+ * and products.
+ */
 public class Supplier extends BaseModel {
     private ArrayList<Product> products;
 

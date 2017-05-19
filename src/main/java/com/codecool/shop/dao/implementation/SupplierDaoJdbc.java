@@ -7,6 +7,10 @@ import com.codecool.shop.model.Supplier;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * The SupplierDaoJdbc class extends the DBConnection class to connect to the database.
+ * It implements the SupplierDao interface.
+ */
 public class SupplierDaoJdbc extends DBConnection implements SupplierDao {
 
     private static ArrayList<Supplier> suppliers = new ArrayList<>();

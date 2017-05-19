@@ -7,6 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * The OrderController class extends the DBConnection class to connect to the database.
+ * The class runs sql queries to get the necessary information about the cart
+ * for the Order class.
+ */
 public class OrderController extends DBConnection {
 
     public void addCartToOrder(String userID) {
